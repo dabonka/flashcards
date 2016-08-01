@@ -10,6 +10,7 @@ end
 
 class Card < ActiveRecord::Base
   belongs_to :user
+  has_one    :deck
 
   has_attached_file :avatar, styles: { medium: "360x360>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
 

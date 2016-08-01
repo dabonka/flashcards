@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :cards, dependent: :destroy
+  has_many :deck,  dependent: :destroy
   authenticates_with_sorcery!
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes["password"] }
