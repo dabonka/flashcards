@@ -1,0 +1,17 @@
+<h1>Listing decks</h1>
+<table>
+  <tr>
+    <th>Title</th>
+  </tr>
+
+  <% @decks.each do |i| %>
+      <tr>
+        <td><%= i.title %></td>
+        <td><%= i.user_id %></td>
+        <td><%= link_to 'Show', deck_path(deck) %></td>
+        <td><%= link_to("Edit", edit_deck_path(deck) ) %></td>
+        <td><%= link_to("Delete",deck_path(deck), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+      </tr>
+  <% end %>
+
+</table>
