@@ -1,5 +1,7 @@
 class DecksController < ApplicationController
+  before_action :require_login
   def index
+    @deck = Deck.all
   end
 
   def show
@@ -15,7 +17,8 @@ class DecksController < ApplicationController
   end
 
   def create
-    @deck = Deck.new(decks_params)
+
+    @deck = current_user.decks.create(decks_params)
     @deck.save!
     redirect_to @deck
   end
@@ -38,6 +41,6 @@ class DecksController < ApplicationController
   private
 
   def decks_params
-    params.require(:deck).permit(:title)
+    params.require(:deck).permit(:title, :user_id)
   end
 end
