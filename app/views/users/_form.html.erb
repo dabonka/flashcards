@@ -16,12 +16,6 @@
 
 
 <p>
-  <%= f.label :current_deck_id %><br>
-  <%= f.select_tag :current_deck_id, options_from_collection_for_select(current_user.decks, "current_deck_id", "title")%>
-</p>
-
-
-<p>
   <%= f.submit %>
 </p>
 

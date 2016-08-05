@@ -12,6 +12,7 @@
         <td><%= link_to 'Show', deck_path(deck) %></td>
         <td><%= link_to("Edit", edit_deck_path(deck) ) %></td>
         <td><%= link_to("Delete",deck_path(deck), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+        <td><%= link_to 'сделать текущей', set_current_deck_path(deck) %></td>
       </tr>
   <% end %>
 

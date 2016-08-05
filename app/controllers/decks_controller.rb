@@ -38,6 +38,11 @@ class DecksController < ApplicationController
     redirect_to decks_path
   end
 
+  def set_current
+    current_user.update(current_deck: params[:id])
+    redirect_to decks_path
+  end
+
   private
 
   def decks_params
