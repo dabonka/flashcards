@@ -23,6 +23,7 @@ class DecksController < ApplicationController
     redirect_to @deck
   end
 
+
   def update
     @deck = Deck.find(params[:id])
     if @deck.update(decks_params)
@@ -39,7 +40,7 @@ class DecksController < ApplicationController
   end
 
   def set_current
-    current_user.update(current_deck: params[:id])
+    current_user.update(current_deck_id: params[:id])
     redirect_to decks_path
   end
 
