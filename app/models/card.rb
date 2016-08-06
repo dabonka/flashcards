@@ -21,7 +21,8 @@ class Card < ActiveRecord::Base
   end
 
   scope :select_cards_for_learning, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u).order("RANDOM()")}
-  scope :select_cards_by_user_id, -> (u) { where("user_id = ?", u)}
+
+  scope :select_cards_for_learning_by_current_deck, -> (u, d) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u, d).order("RANDOM()")}
 
   def check_translation(mytext)
    self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip

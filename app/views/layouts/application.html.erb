@@ -2,6 +2,13 @@
   <title>Флэшкарточкер</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 </head>
+<ul class="navigation-links">
+
+  <li><%= link_to 'Все карточки', cards_path %></li>
+  <li><%= link_to 'Добавить карточку', new_card_path %></li>
+  <li><%= link_to 'Все колоды', decks_path %></li>
+  <li><%= link_to 'Добавить колоду', new_deck_path %></li>
+</ul>
 
 <%= javascript_include_tag 'application' %>
 
