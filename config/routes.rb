@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'decks/index'
-
   root :to => "home#index"
   
   resources :cards

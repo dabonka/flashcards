@@ -20,9 +20,8 @@ class Card < ActiveRecord::Base
     self.review_date = Date.current + 3.days
   end
 
-  scope :select_cards_for_learning, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u).order("RANDOM()")}
-
-  scope :select_cards_for_learning_by_current_deck, -> (u, d) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u, d).order("RANDOM()")}
+  scope :select_cards_for_learning, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).order("RANDOM()")}
+  scope :select_cards_for_learning_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).order("RANDOM()")}
 
   def check_translation(mytext)
    self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip

@@ -18,7 +18,7 @@ class DecksController < ApplicationController
 
   def create
 
-    @deck = current_user.decks.create(decks_params)
+    @deck = current_user.decks.new(decks_params)
     @deck.save!
     redirect_to @deck
   end

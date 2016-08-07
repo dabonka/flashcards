@@ -6,7 +6,6 @@ gem 'nokogiri'
 
 gem 'sorcery'
 
-gem 'byebug'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
@@ -50,4 +49,5 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
   gem 'capybara'
   gem 'factory_girl'
-end
+  gem 'byebug'
+  end
