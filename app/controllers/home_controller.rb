@@ -10,9 +10,9 @@ class HomeController < ApplicationController
     if @card.check_translation(params[:user_variant])
       @card.set_review_date
       @card.save!
-      flash[:card_true] = true
+      flash[:card_true] = "Правильно"
     else
-      flash[:card_false] = true
+      flash[:card_false] = "Ошибка"
     end
    redirect_to root_path
   end
