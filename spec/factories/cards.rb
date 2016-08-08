@@ -10,7 +10,7 @@ FactoryGirl.define do
     # avatar_file_name "Sky.jpg"
     # avatar_file_size 62293
     association :user, factory: :user
-    #  review_date Date.current
+    review_date Date.current
     #  id 1000
   end
 end
