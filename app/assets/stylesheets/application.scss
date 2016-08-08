@@ -1,0 +1,57 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ */
+
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+ #container {
+  margin: 48px auto;
+  width: 960px;
+}
+
+#container > section {
+  clear: both;
+}
+
+#container > header {
+  margin-bottom: 46px;
+}
+
+#container > header > h1 {
+  float: left;
+  margin: 0;
+}
+
+.navigation-links {
+  float: right;
+}
+
+.navigation-links li {
+  display: inline-block;
+  margin: 0 16px;
+}
+
+p.notice {
+    color: #40ad43;
+}
+
+p.error {
+    color: #cb1427;
+}
+
+
+/* MISC */
+
+.clearfix:after {content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;} html[xmlns].clearfix{display:block;} * html .clearfix{height:1%;}

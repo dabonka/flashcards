@@ -2,15 +2,11 @@
   <title>Флэшкарточкер</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 </head>
-
-
-
-
-
-
 <%= javascript_include_tag 'application' %>
 
     <% if current_user %>
+
+
     <ul class="navigation-links">
         <li><%= link_to 'Главная', root_path %></li>
         <li><%= link_to 'Все карточки', cards_path %></li>
