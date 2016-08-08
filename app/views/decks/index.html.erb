@@ -1,0 +1,23 @@
+<h1>Listing decks</h1>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Deck ID</th>
+  </tr>
+
+  <% @deck.each do |deck| %>
+
+      <tr>
+        <td><%= deck.title %></td>
+        <td><%= deck.id %></td>
+        <td><%= link_to 'Show', deck_path(deck) %></td>
+        <td><%= link_to("Edit", edit_deck_path(deck) ) %></td>
+        <td><%= link_to("Delete",deck_path(deck), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+        <td><%= link_to('сделать текущей', set_current_deck_path(deck), method: :put) %></td>
+        <td><%= "текущая" if deck.id == current_user.current_deck_id %></td>
+      </tr>
+  <% end %>
+
+
+
+</table>

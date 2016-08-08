@@ -10,6 +10,7 @@ end
 
 class Card < ActiveRecord::Base
   belongs_to :user
+  has_one    :deck
 
   has_attached_file :avatar, styles: { medium: "360x360>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
 
@@ -19,8 +20,8 @@ class Card < ActiveRecord::Base
     self.review_date = Date.current + 3.days
   end
 
-  scope :select_cards_for_learning, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u).order("RANDOM()")}
-  scope :select_cards_by_user_id, -> (u) { where("user_id = ?", u)}
+  scope :cards_for_learning, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).order("RANDOM()")}
+  scope :cards_for_learning_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).order("RANDOM()")}
 
   def check_translation(mytext)
    self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip

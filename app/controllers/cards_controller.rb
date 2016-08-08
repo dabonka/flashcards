@@ -1,7 +1,12 @@
 class CardsController < ApplicationController
   before_action :require_login
   def index
-      @cards = Card.select_cards_by_user_id(current_user.id)
+    @cards = if current_user.current_deck_id?
+      Card.cards_for_learning_by_current_deck(current_user)
+    else
+      Card.cards_for_learning(current_user)
+    end
+
   end
 
   def show
@@ -17,7 +22,7 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = current_user.cards.create(cards_params)
+    @card = current_user.cards.new(cards_params)
     @card.save!
     redirect_to @card
   end
