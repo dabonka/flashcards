@@ -1,12 +1,7 @@
 class CardsController < ApplicationController
   before_action :require_login
   def index
-    @cards = if current_user.current_deck_id?
-      Card.cards_for_learning_by_current_deck(current_user)
-    else
-      Card.cards_for_learning(current_user)
-    end
-
+    @cards = Card.all
   end
 
   def show
