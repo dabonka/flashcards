@@ -12,7 +12,7 @@ describe  "Users", :type => :feature do
       fill_in 'user_password', :with => '123123321321'
       fill_in 'user_password_confirmation', :with => '123123321321'
       click_button 'Create User'
-      expect(page).to have_content 'Email'
+      expect(page).to have_content 'Logout'
     end
   end
 

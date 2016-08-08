@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(users_params)
     @user = login(users_params[:email], users_params[:password], users_params[:remember])
+    flash[:just_login] = true
     redirect_to root_path
   end
 

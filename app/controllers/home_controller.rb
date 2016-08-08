@@ -10,10 +10,10 @@ class HomeController < ApplicationController
     if @card.check_translation(params[:user_variant])
       @card.set_review_date
       @card.save!
-      flash[:notice] = true
+      flash[:card_true] = true
     else
-      flash[:error] = true
+      flash[:card_false] = true
     end
-   redirect_to "/"
+   redirect_to root_path
   end
 end
