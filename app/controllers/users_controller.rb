@@ -16,9 +16,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(users_params)
-    @user.save!
-    redirect_to login_path
+    @user = User.create(users_params)
+    @user = login(users_params[:email], users_params[:password], users_params[:remember])
+    redirect_to root_path
   end
 
   def update
