@@ -19,5 +19,11 @@ describe  "Decks", :type => :feature do
     expect(page).to have_content 'Name of Deck'
   end
 
+  it  "Select current deck" do
+    visit decks_path
+    click_link 'сделать текущей'
+    expect(page).to have_content 'текущая'
+  end
+
 
 end
