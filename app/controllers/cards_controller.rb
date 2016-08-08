@@ -18,7 +18,6 @@ class CardsController < ApplicationController
 
   def create
     @card = current_user.cards.create(cards_params)
-    #@card = current_user.cards.new(cards_params)
     redirect_to @card
   end
 
