@@ -50,4 +50,6 @@ group :development, :test do
   gem 'capybara'
   gem 'factory_girl'
   gem 'byebug'
-  end
+end
+
+gem 'rails_12factor', group: :production
