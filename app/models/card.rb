@@ -21,23 +21,19 @@ class Card < ActiveRecord::Base
   def set_review_date
     self.review_date = Date.current + 3.days
   end
+  # scope :cards_for_learn, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).limit(1).order("RANDOM()").take}
+  # scope :cards_for_learn_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).limit(1).order("RANDOM()").take}
 
-  # scope :cards_for_learning, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).order("RANDOM()")}
-  # scope :cards_for_learning_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).order("RANDOM()")}
-  def self.cards_for_learning(u)
-    where ("review_date <= Time.now")
-    where (user_id = u.id)
-    order("RANDOM()")
-    first
-  end
+  scope :cards_for_learn, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).limit(1).order("RANDOM()")}
+  scope :cards_for_learn_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).limit(1).order("RANDOM()")}
 
-  def self.cards_for_learning_by_current_deck(u)
-    where ("review_date <= Time.now")
-    where (user_id = u.id)
-    where (deck_id = u.current_deck_id)
-    order("RANDOM()")
-    first
-  end
+  #  def self.cards_for_learn(u)
+  #   where("user_id = ?", u.id).where("review_date <=?", Time.now ).limit(1).order("RANDOM()").take
+  # end
+
+  #  def self.cards_for_learn_by_current_deck(u)
+  #   where("user_id = ?", u.id).where("review_date <=?", Time.now ).where("deck_id = ?", u.current_deck_id ).limit(1).order("RANDOM()").take
+  # end
 
   def check_translation(mytext)
    self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip

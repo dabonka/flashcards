@@ -36,6 +36,20 @@
     <div class="actions">
     <button>Проверить!</button>
     </div>
+    <table>
+      <tr>
+        <th>Original Text</th>
+        <th>Translated Text</th>
+        <th>Deck</th>
+        <th>Review Date</th>
+      </tr>
+      <tr>
+        <td><%= @card.original_text %></td>
+        <td><%= @card.translated_text %></td>
+        <td><%= @card.deck_id %></td>
+        <td><%= @card.review_date.strftime("%d/%m/%Y") %></td>
+      </tr>
+    </table>
   <% end %>
 <%  else %>
   <p>Карт для проверки нет</p>

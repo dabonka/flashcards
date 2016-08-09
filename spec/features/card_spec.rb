@@ -16,7 +16,7 @@ describe  "Cards", :type => :feature do
     visit new_card_path
     fill_in 'card_original_text', :with => 'Windows'
     fill_in 'card_translated_text', :with => 'Okna'
-    click_button 'Create Card'
+    click_button 'OK'
     expect(page).to have_content 'Original Text'
   end
 
