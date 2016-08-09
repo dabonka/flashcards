@@ -1,41 +1,56 @@
 <section id="container">
   <header class="clearfix">
-    <h1>Флэшкарточкер</h1>
+    <h1>FlashCards</h1>
 
   </header>
 
   <section>
     <p style="font-size: 22px;">
-      Первый в мире удобный менеджер флеш-карточек. Именно так.
+      Карточки для запоминания иностранных слов
     </p>
   </section>
 </section>
 
-<% if flash[:notice] %>
+<% if flash[:card_true] %>
  <p class="notice">Правильно!</p>
 <% end %>
 
-<% if flash[:error] %>
+<% if flash[:card_false] %>
   <p class="error">Ошибка!</p>
 <% end %>
 
+<% if flash[:just_login] %>
+    <p class="notice">Авторизация успешна!</p>
+<% end %>
+
+<% if flash[:login_failed] %>
+    <p class="error">Ошибка авторизации!</p>
+<% end %>
+
 <% if @card.present? %>
+
   <%= form_tag home_path do %>
     <%= text_field_tag :user_variant%>
     <%= hidden_field_tag 'card_id', @card.id %>
     <%= image_tag @card.avatar.url(:medium) %>
-		<button>Проверить!</button>
-	<% end %>
-  <table>
-    <tr>
-      <th>Original Text</th>
-      <th>Translated Text</th>
-      <th>Review Date</th>
-    </tr>
-    <tr>
-      <td><%= @card.original_text %></td>
-      <td><%= @card.translated_text %></td>
-      <td><%= @card.review_date.strftime("%d/%m/%Y") %></td>
-    </tr>
-  </table>
+    <div class="actions">
+    <button>Проверить!</button>
+    </div>
+    <table>
+      <tr>
+        <th>Original Text</th>
+        <th>Translated Text</th>
+        <th>Deck</th>
+        <th>Review Date</th>
+      </tr>
+      <tr>
+        <td><%= @card.original_text %></td>
+        <td><%= @card.translated_text %></td>
+        <td><%= @card.deck_id %></td>
+        <td><%= @card.review_date.strftime("%d/%m/%Y") %></td>
+      </tr>
+    </table>
+  <% end %>
+<%  else %>
+  <p>Карт для проверки нет</p>
 <% end %>

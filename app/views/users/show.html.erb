@@ -3,21 +3,26 @@
   <link rel="stylesheet" href="application.css">
 </head>
 
-<table>
+<% if current_user %>
+  <table>
 
-  <tr>
-    <th>Email</th>
-    <th>Password</th>
-  </tr>
+    <tr>
+      <th>Email</th>
+      <th>Password</th>
+    </tr>
 
-  <tr>
-    <td><%= @user.email %></td>
-    <td><%= @user.password %></td>
-  </tr>
+    <tr>
+      <td><%= @user.email %></td>
+      <td><%= @user.password %></td>
+    </tr>
 
-</table>
+  </table>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Home', root_path %>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Home', root_path %>
+
+<% end %>
+
+
 
 

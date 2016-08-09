@@ -1,19 +1,25 @@
 class HomeController < ApplicationController
+  before_action :require_login
   def index
-     if current_user != nil
-       @card = current_user.cards.first
-     end
-   end
+    @card = if current_user.current_deck_id?
+      Card.cards_for_learn(current_user).take
+    else
+      Card.cards_for_learn_by_current_deck(current_user).take
+    end
+  end
+
 
   def compare
     @card = Card.find(params[:card_id])
     if @card.check_translation(params[:user_variant])
       @card.set_review_date
       @card.save!
-      flash[:notice] = true
+      flash[:card_true] = "Правильно"
     else
-      flash[:error] = true
+      flash[:card_false] = "Ошибка"
     end
-   redirect_to "/"
+   redirect_to root_path
   end
+
+
 end

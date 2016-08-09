@@ -16,7 +16,7 @@ describe  "Decks", :type => :feature do
     visit new_deck_path
     fill_in 'deck_title', :with => 'Повседневная колода'
     click_button 'Create Deck'
-    expect(page).to have_content 'Name of Deck'
+    expect(page).to have_content 'Listing decks'
   end
 
   it  "Select current deck" do
