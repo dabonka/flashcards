@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
   before_action :require_login
   def index
-    @cards = current_user.cards.all
+    @cards = current_user.cards
   end
 
   def show
@@ -18,7 +18,11 @@ class CardsController < ApplicationController
 
   def create
     @card = current_user.cards.create(cards_params)
-    redirect_to @card
+    if @card.save!
+      redirect_to cards_path
+    else
+      render :new
+    end
   end
 
   def update
@@ -39,8 +43,15 @@ class CardsController < ApplicationController
   private
 
   def require_login
-    redirect_to new_user_path unless current_user
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to login_path
+    end
   end
+
+  #def require_login
+    #redirect_to new_user_path unless current_user
+  #end
 
   def cards_params
     params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :avatar)

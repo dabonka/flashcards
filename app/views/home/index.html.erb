@@ -1,12 +1,12 @@
 <section id="container">
   <header class="clearfix">
-    <h1>Флэшкарточкер</h1>
+    <h1>FlashCards</h1>
 
   </header>
 
   <section>
     <p style="font-size: 22px;">
-      Первый в мире удобный менеджер флеш-карточек. Именно так.
+      Карточки для запоминания иностранных слов
     </p>
   </section>
 </section>
@@ -28,22 +28,31 @@
 <% end %>
 
 <% if @card.present? %>
+
   <%= form_tag home_path do %>
     <%= text_field_tag :user_variant%>
     <%= hidden_field_tag 'card_id', @card.id %>
     <%= image_tag @card.avatar.url(:medium) %>
-		<button>Проверить!</button>
-	<% end %>
-  <table>
-    <tr>
-      <th>Original Text</th>
-      <th>Translated Text</th>
-      <th>Review Date</th>
-    </tr>
-    <tr>
-      <td><%= @card.original_text %></td>
-      <td><%= @card.translated_text %></td>
-      <td><%= @card.review_date.strftime("%d/%m/%Y") %></td>
-    </tr>
-  </table>
+    <div class="actions">
+    <button>Проверить!</button>
+    </div>
+  <% end %>
+# Отладочная таблица для проверяемых карт
+    <table>
+      <tr>
+        <th>Original Text</th>
+        <th>Translated Text</th>
+        <th>Deck</th>
+        <th>Review Date</th>
+      </tr>
+      <tr>
+        <td><%= @card.original_text %></td>
+        <td><%= @card.translated_text %></td>
+        <td><%= @card.translated_text %></td>
+        <td><%= @card.review_date.strftime("%d/%m/%Y") %></td>
+      </tr>
+    </table>
+# Конец таблицы
+<%  else %>
+  <p>Карт для проверки нет</p>
 <% end %>

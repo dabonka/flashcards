@@ -17,10 +17,12 @@ class DecksController < ApplicationController
   end
 
   def create
-
     @deck = current_user.decks.new(decks_params)
-    @deck.save!
-    redirect_to @deck
+    if @deck.save!
+      redirect_to decks_path
+    else
+      render :new
+    end
   end
 
 
