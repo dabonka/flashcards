@@ -5,6 +5,9 @@
     <th>Translated Text</th>
     <th>Review Date</th>
     <th>User</th>
+    <th>Deck</th>
+    <th>Level</th>
+    <th>Fail_Counter</th>
     <th>Show</th>
     <th>Edit</th>
     <th>Delete</th>
@@ -17,6 +20,9 @@
       <td><%= card.translated_text %></td>
       <td><%= card.review_date.strftime("%d/%m/%Y") %></td>
       <td><%= card.user_id %></td>
+      <td><%= card.deck_id %></td>
+      <td><%= card.level %></td>
+      <td><%= card.fail_counter %></td>
       <td><%= image_tag card.avatar.url(:medium) %></td>
       <td><%= link_to 'Show', card_path(card) %></td>
       <td><%= link_to("Edit", edit_card_path(card) ) %></td>
