@@ -7,7 +7,7 @@ describe  "Cards", :type => :feature do
   let!(:user) { create(:user) }
 
   before(:each) do
-    login("admin@admin.com", "password")
+    login("adminadmin@admin.com", "password")
   end
 
   let!(:card) {create :card, review_date: Date.current, user: user} # Запускаем фабрику создания карточки, созданное значение действительно до конца describe  "Cards"

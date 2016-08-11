@@ -36,65 +36,48 @@ class Card < ActiveRecord::Base
   # end
 
   def check_translation(mytext)
-   self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip
+    self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip
   end
 
-
-  def set_date (level)
-    case level
-      when 0
-        self.review_date = Time.current
-      when 1
-        self.review_date = Time.current + 12.hour
-      when 2
-        self.review_date = Time.current + 3.days
-      when 3
-        self.review_date = Time.current + 1.week
-      when 4
-        self.review_date = Time.current + 2.weeks
-      else
-        self.review_date = Time.current + 1.month
-    end
+  def success
+       case self.level
+        when 0
+          self.review_date = Time.current + 12.hour
+        when 1
+          self.review_date = Time.current + 3.days
+        when 2
+          self.review_date = Time.current + 1.week
+        when 3
+          self.review_date = Time.current + 2.weeks
+        else
+          self.review_date = Time.current + 1.month
+       end
+       self.level += 1 if self.level < 5 # Level 5 the highest possible cards level
+    save!
   end
 
-  def set_level_up(level)
-    self.level +=1 if level < 5 # Level 5 the highest possible cards level
-  end
-
-  def set_level_down(level)
-    case level # We reduce the level of card of but not less than 0
-      when 1
-        self.level = 0
-      when 2
-        self.level = 0
-      when 3
-        self.level = 1
-      when 4
-        self.level = 2
-      when 5
-        self.level = 3
-      else
-    end
-  end
-
-  def set_fail_counter(fail_counter)
-    self.fail_counter +=1
-
-    if self.fail_counter >= 3
+  def failed
+    if self.fail_counter < 2
+     self.fail_counter +=1
+    else
+      case level
+       when 0..2
+          self.level = 0
+          self.review_date = Time.current
+       when 3
+          self.level = 1
+          self.review_date = Time.current + 12.hour
+       when 4
+          self.level = 2
+          self.review_date = Time.current + 3.days
+       when 5
+          self.level = 3
+          self.review_date = Time.current + 1.week
+      end
       self.fail_counter = 0
-
-      # if self.level == 1 || self.level == 2
-      # if true
-      #   self.level = 0
-      #  else
-      #    self.level -= 2
-      #  end
-
     end
-
+    save!
   end
-
-
 
 
   validates :original_text, :translated_text, :review_date, :user_id, presence: true

@@ -8,27 +8,15 @@ class HomeController < ApplicationController
     end
   end
 
-
   def compare
     @card = Card.find(params[:card_id])
     if @card.check_translation(params[:user_variant])
-      @card.set_level_up(@card.level)
-      @card.set_date(@card.level)
+      @card.success
       flash[:card_true] = "Правильно"
     else
-
-      if @card.fail_counter == 2 # Value of @card.fail_counter before thirds fail equal 2
-        @card.set_level_down(@card.level)
-      end
-
-      @card.set_fail_counter(@card.fail_counter)
-
+      @card.failed
       flash[:card_false] = "Ошибка"
     end
-      @card.save!
     redirect_to root_path
-
   end
-
-
 end

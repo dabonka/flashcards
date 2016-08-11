@@ -4,7 +4,7 @@ require 'rails_helper'
 describe "Card" do
 
 
-  
+
   describe "set_review_date" do
     it "set review date to now + 3 days" do
       card = FactoryGirl.create(:card)
@@ -15,8 +15,8 @@ describe "Card" do
     end
   end
 
- describe "check_translation" do
-	  it "allow using camelcase" do
+  describe "check_translation" do
+    it "allow using camelcase" do
       card = Card.new(translated_text: "hause")
       expect(card.check_translation("Hause")).to be true
     end
@@ -25,5 +25,15 @@ describe "Card" do
       card = Card.new(translated_text: " hause ")
       expect(card.check_translation("hause")).to be true
     end
+
+    describe "success" do
+      true
+    end
+
+    describe "failed" do
+      true
+    end
+
+
   end
 end
