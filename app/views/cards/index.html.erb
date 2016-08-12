@@ -1,5 +1,5 @@
 <h1>Listing cards</h1>
-<table>
+<table class="table table-striped">
   <tr>
     <th>Original Text</th>
     <th>Translated Text</th>
@@ -15,7 +15,7 @@
       <td><%= card.original_text %></td>
       <td><%= card.translated_text %></td>
       <td><%= card.review_date.strftime("%d/%m/%Y") %></td>
-      <td><%= image_tag card.avatar.url(:medium) %></td>
+      <td><%= image_tag card.avatar.url(:thumb) %></td>
       <td><%= link_to 'Show', card_path(card) %></td>
       <td><%= link_to("Edit", edit_card_path(card) ) %></td>
       <td><%= link_to("Delete",card_path(card), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
