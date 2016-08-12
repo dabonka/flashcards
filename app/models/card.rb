@@ -19,7 +19,6 @@ class Card < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   def set_review_date
-    # self.review_date = Date.current + 3.days
     self.review_date = Date.current
   end
   # scope :cards_for_learn, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).limit(1).order("RANDOM()").take}
