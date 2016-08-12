@@ -2,7 +2,7 @@ class EqualValidator < ActiveModel::Validator
   def validate(card)
     if card
       if card.original_text.mb_chars.downcase.strip.normalize == card.translated_text.mb_chars.downcase.strip.normalize
-           card.errors[:base] << "The values of original text and translated text should be different"
+        card.errors[:base] << "The values of original text and translated text should be different"
       end
     end
   end
@@ -17,6 +17,8 @@ class Card < ActiveRecord::Base
   has_attached_file :avatar, styles: { medium: "360x360>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
 
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+  require "damerau-levenshtein"
 
   def set_review_date
     self.review_date = Date.current
@@ -36,43 +38,51 @@ class Card < ActiveRecord::Base
   # end
 
   def check_translation(mytext)
-    self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip
+    # self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip
+    if DamerauLevenshtein.distance(self.translated_text.mb_chars.downcase.strip, mytext.mb_chars.downcase.strip) < 1
+      true
+    elsif DamerauLevenshtein.distance(self.translated_text.mb_chars.downcase.strip, mytext.mb_chars.downcase.strip) == 1
+      true
+    else
+      false
+    end
+
   end
 
   def success
     self.review_date = Time.current + case self.level
-        when 0
-          12.hour
-        when 1
-          3.days
-        when 2
-          1.week
-        when 3
-          2.weeks
-        when 4
-          1.month
-        else
-          1.month
-       end
-       self.level += 1 if self.level < 5 # Level 5 the highest possible cards level
+                                        when 0
+                                          12.hour
+                                        when 1
+                                          3.days
+                                        when 2
+                                          1.week
+                                        when 3
+                                          2.weeks
+                                        when 4
+                                          1.month
+                                        else
+                                          1.month
+                                      end
+    self.level += 1 if self.level < 5 # Level 5 the highest possible cards level
     save!
   end
 
   def failed
     if self.fail_counter < 2
-     self.fail_counter +=1
+      self.fail_counter +=1
     else
       case level
-       when 0..2
+        when 0..2
           self.level = 0
           self.review_date = Time.current
-       when 3
+        when 3
           self.level = 1
           self.review_date = Time.current + 12.hour
-       when 4
+        when 4
           self.level = 2
           self.review_date = Time.current + 3.days
-       when 5
+        when 5
           self.level = 3
           self.review_date = Time.current + 1.week
       end
@@ -88,5 +98,5 @@ class Card < ActiveRecord::Base
   # validates :avatar, attachment_presence: true
   # validates_with AttachmentPresenceValidator, attributes: :avatar
   # validates_with AttachmentSizeValidator, attributes: :avatar, less_than: 1.megabytes
-  
+
 end
