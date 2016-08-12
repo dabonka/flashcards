@@ -39,9 +39,17 @@
     <table>
       <tr>
         <th>Original Text</th>
+        <th>Translated Text</th>
+        <th>Level Text</th>
+        <th>Fail Counter</th>
+        <th>Date Review</th>
       </tr>
       <tr>
         <td><%= @card.original_text %></td>
+        <td><%= @card.translated_text %></td>
+        <td><%= @card.level %></td>
+        <td><%= @card.fail_counter %></td>
+        <td><%= @card.review_date %></td>
       </tr>
     </table>
   <% end %>

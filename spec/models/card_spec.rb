@@ -6,12 +6,12 @@ describe "Card" do
 
 
   describe "set_review_date" do
-    it "set review date to now + 3 days" do
+    it "set review date to now" do
       card = FactoryGirl.create(:card)
       # card = Card.new(original_text: "Olala", translated_text: "hause")
       # card.save!
       # expect(card.set_review_date == (Date.current + 3.days) ).to be true
-      expect(card.set_review_date).to eq (Date.current + 3.days)
+      expect(card.set_review_date).to eq (Date.current)
     end
   end
 
@@ -38,6 +38,7 @@ describe "Card" do
 
       it "when second check is success" do
         @card = FactoryGirl.create(:card)
+        @card.review_date = Time.current.strftime("%d/%m/%Y")
         2.times {@card.success}
         expect(@card.level).to eq 2
         expect((@card.review_date).strftime("%d/%m/%Y")).to eq (Time.current + 3.days).strftime("%d/%m/%Y")

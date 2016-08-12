@@ -19,7 +19,8 @@ class Card < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   def set_review_date
-    self.review_date = Date.current + 3.days
+    # self.review_date = Date.current + 3.days
+    self.review_date = Date.current
   end
   # scope :cards_for_learn, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).limit(1).order("RANDOM()").take}
   # scope :cards_for_learn_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).limit(1).order("RANDOM()").take}
@@ -40,17 +41,19 @@ class Card < ActiveRecord::Base
   end
 
   def success
-       case self.level
+    self.review_date = Time.current + case self.level
         when 0
-          self.review_date = Time.current + 12.hour
+          12.hour
         when 1
-          self.review_date = Time.current + 3.days
+          3.days
         when 2
-          self.review_date = Time.current + 1.week
+          1.week
         when 3
-          self.review_date = Time.current + 2.weeks
+          2.weeks
+        when 4
+          1.month
         else
-          self.review_date = Time.current + 1.month
+          1.month
        end
        self.level += 1 if self.level < 5 # Level 5 the highest possible cards level
     save!
