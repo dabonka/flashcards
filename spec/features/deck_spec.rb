@@ -7,7 +7,7 @@ describe  "Decks", :type => :feature do
   let!(:user) { create(:user) }
 
   before(:each) do
-    login("admin@admin.com", "password")
+    login("adminadmin@admin.com", "password")
   end
 
   let!(:deck) {create :deck, user: user} # Запускаем фабрику создания колоды, созданное значение действительно до конца describe  "Decks"

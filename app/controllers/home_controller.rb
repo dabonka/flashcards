@@ -8,18 +8,15 @@ class HomeController < ApplicationController
     end
   end
 
-
   def compare
     @card = Card.find(params[:card_id])
     if @card.check_translation(params[:user_variant])
-      @card.set_review_date
-      @card.save!
+      @card.success
       flash[:card_true] = "Правильно"
     else
+      @card.failed
       flash[:card_false] = "Ошибка"
     end
-   redirect_to root_path
+    redirect_to root_path
   end
-
-
 end

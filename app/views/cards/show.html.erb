@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="application.css">
 </head>
 
-<table>
+<table class="table table-striped">
 
     <tr>
 	    <th>Original Text</th>
@@ -17,7 +17,7 @@
       <td><%= @card.original_text %></td>
       <td><%= @card.translated_text %></td>
       <td><%= @card.review_date.strftime("%d/%m/%Y") %></td>
-      <td> <%= image_tag @card.avatar.url(:medium) %></td>
+      <td> <%= image_tag @card.avatar.url(:thumb) %></td>
     </tr>
 
 </table>
