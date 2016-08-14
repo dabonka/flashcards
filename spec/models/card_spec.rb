@@ -18,12 +18,12 @@ describe "Card" do
   describe "check_translation" do
     it "allow using camelcase" do
       card = Card.new(translated_text: "hause")
-      expect(card.check_translation("Hause")).to be true
+      expect(card.check_translation("Hause")[:translate_ok]).to be true
     end
 
     it "allow using spaces" do
       card = Card.new(translated_text: " hause ")
-      expect(card.check_translation("hause")).to be true
+      expect(card.check_translation("hause")[:translate_ok]).to be true
     end
   end
 
