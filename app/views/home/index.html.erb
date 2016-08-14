@@ -12,11 +12,18 @@
 </section>
 
 <% if flash[:card_true] %>
- <p class="notice">Правильно!</p>
+<p class="notice">Правильно!</p>
+<p>Ваш вариант: <%= flash[:card_true] %></p>
 <% end %>
 
 <% if flash[:card_false] %>
   <p class="error">Ошибка!</p>
+<p>Ваш вариант: <%= flash[:card_false] %></p>
+<% end %>
+
+<% if flash[:card_misprint] %>
+  <p class="error">Вы опечатались!</p>
+<p>Ваш вариант: <%= flash[:card_misprint] %></p>
 <% end %>
 
 <% if flash[:just_login] %>

@@ -10,12 +10,15 @@ class HomeController < ApplicationController
 
   def compare
     @card = Card.find(params[:card_id])
-    if @card.check_translation(params[:user_variant])
+    if @card.check_translation(params[:user_variant])[:translate_ok]
       @card.success
-      flash[:card_true] = "Правильно"
-    else
+      flash[:card_true] = @card.check_translation(params[:user_variant])[:user_version]
+    elsif @card.check_translation(params[:user_variant])[:misprint_ok]
+    @card.success
+      flash[:card_misprint] = @card.check_translation(params[:user_variant])[:user_version]
+    elsif @card.check_translation(params[:user_variant])[:translate_false]
       @card.failed
-      flash[:card_false] = "Ошибка"
+      flash[:card_false] = @card.check_translation(params[:user_variant])[:user_version]
     end
     redirect_to root_path
   end

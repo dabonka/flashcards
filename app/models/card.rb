@@ -23,47 +23,42 @@ class Card < ActiveRecord::Base
   def set_review_date
     self.review_date = Date.current
   end
-  # scope :cards_for_learn, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).limit(1).order("RANDOM()").take}
-  # scope :cards_for_learn_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).limit(1).order("RANDOM()").take}
 
   scope :cards_for_learn, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).limit(1).order("RANDOM()")}
   scope :cards_for_learn_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).limit(1).order("RANDOM()")}
 
-  #  def self.cards_for_learn(u)
-  #   where("user_id = ?", u.id).where("review_date <=?", Time.now ).limit(1).order("RANDOM()").take
-  # end
-
-  #  def self.cards_for_learn_by_current_deck(u)
-  #   where("user_id = ?", u.id).where("review_date <=?", Time.now ).where("deck_id = ?", u.current_deck_id ).limit(1).order("RANDOM()").take
-  # end
-
   def check_translation(mytext)
-    # self.translated_text.mb_chars.downcase.strip == mytext.mb_chars.downcase.strip
-    if DamerauLevenshtein.distance(self.translated_text.mb_chars.downcase.strip, mytext.mb_chars.downcase.strip) < 1
-      true
-    elsif DamerauLevenshtein.distance(self.translated_text.mb_chars.downcase.strip, mytext.mb_chars.downcase.strip) == 1
-      true
+    result_of_check = Hash.new
+    if check_misprint(mytext) < 1
+      result_of_check = { translate_ok: true, user_version: mytext, correct_version: self.translated_text }
+    elsif check_misprint(mytext) == 1
+      result_of_check = { misprint_ok: true, user_version: mytext, correct_version: self.translated_text }
     else
-      false
+      result_of_check = { translate_false: true, user_version: mytext, correct_version: self.translated_text }
     end
+  end
 
+
+
+  def check_misprint(mytext)
+    DamerauLevenshtein.distance(self.translated_text.mb_chars.downcase.strip, mytext.mb_chars.downcase.strip)
   end
 
   def success
     self.review_date = Time.current + case self.level
-                                        when 0
-                                          12.hour
-                                        when 1
-                                          3.days
-                                        when 2
-                                          1.week
-                                        when 3
-                                          2.weeks
-                                        when 4
-                                          1.month
-                                        else
-                                          1.month
-                                      end
+      when 0
+        12.hour
+      when 1
+        3.days
+      when 2
+        1.week
+      when 3
+        2.weeks
+      when 4
+        1.month
+      else
+        1.month
+    end
     self.level += 1 if self.level < 5 # Level 5 the highest possible cards level
     save!
   end
