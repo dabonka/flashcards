@@ -14,12 +14,18 @@ class HomeController < ApplicationController
     if result[:translate_ok]
       @card.success
       flash[:card_true] = result[:user_version]
+      flash[:original_text] = result[:original_text]
+      flash[:translated_text] = result[:translated_text]
     elsif result[:misprint_ok]
     @card.success
       flash[:card_misprint] = result[:user_version]
+    flash[:original_text] = result[:original_text]
+    flash[:translated_text] = result[:translated_text]
     elsif result[:translate_false]
       @card.failed
       flash[:card_false] = result[:user_version]
+      flash[:original_text] = result[:original_text]
+      flash[:translated_text] = result[:translated_text]
     end
     redirect_to root_path
   end

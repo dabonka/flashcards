@@ -29,11 +29,11 @@ class Card < ActiveRecord::Base
 
   def check_translation(mytext)
     if check_misprint(mytext) < 1
-     { translate_ok: true, user_version: mytext }
+     { translate_ok: true, user_version: mytext, original_text: self.original_text, translated_text: self.translated_text }
     elsif check_misprint(mytext) == 1
-      { misprint_ok: true, user_version: mytext }
+      { misprint_ok: true, user_version: mytext, original_text: self.original_text, translated_text: self.translated_text }
     else
-      { translate_false: true, user_version: mytext }
+      { translate_false: true, user_version: mytext, original_text: self.original_text, translated_text: self.translated_text }
     end
   end
 
