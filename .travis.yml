@@ -5,7 +5,7 @@ rvm:
 services:
   - postgresql
 
-  script:
+script:
   - bundle exec rake db:migrate RAILS_ENV=test
 
 before_script:
