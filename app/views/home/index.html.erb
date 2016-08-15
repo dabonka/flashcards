@@ -18,12 +18,12 @@
 
 <% if flash[:card_false] %>
   <p class="error">Ошибка!</p>
-<p>Ваш вариант: <strong><%= flash[:card_false] %></strong></p>
+<p><%= flash[:card_false] %></p>
 <% end %>
 
 <% if flash[:card_misprint] %>
   <p class="error">Вы опечатались!</p>
-<p>Ваш вариант: <strong><%= flash[:card_misprint] %></strong></p>
+<p><%= flash[:card_misprint] %></p>
 <% end %>
 
 <% if flash[:just_login] %>
@@ -32,14 +32,6 @@
 
 <% if flash[:login_failed] %>
     <p class="error">Ошибка авторизации!</p>
-<% end %>
-
-<% if flash[:original_text] %>
-    <p>Оригинальное значение:<strong> <%= flash[:original_text] %></strong></p>
-<% end %>
-
-<% if flash[:translated_text] %>
-    <p>Перевод слова: <strong><%= flash[:translated_text] %></strong></p>
 <% end %>
 
 <% if @card.present? %>

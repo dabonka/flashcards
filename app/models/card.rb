@@ -28,12 +28,13 @@ class Card < ActiveRecord::Base
   scope :cards_for_learn_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).limit(1).order("RANDOM()")}
 
   def check_translation(mytext)
+    info_message = "Ваш вариант - " + mytext + ". Оригинал слова - " +  self.original_text.to_s + ". Перевод слова - " + self.translated_text.to_s
     if check_misprint(mytext) < 1
-     { translate_ok: true, user_version: mytext, original_text: self.original_text, translated_text: self.translated_text }
+      { translate_ok: true, message: info_message }
     elsif check_misprint(mytext) == 1
-      { misprint_ok: true, user_version: mytext, original_text: self.original_text, translated_text: self.translated_text }
+      { misprint_ok: true, message: info_message }
     else
-      { translate_false: true, user_version: mytext, original_text: self.original_text, translated_text: self.translated_text }
+      { translate_false: true, message: info_message }
     end
   end
 
