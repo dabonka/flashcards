@@ -25,6 +25,11 @@ describe "Card" do
       card = Card.new(translated_text: " hause ")
       expect(card.check_translation("hause")[:translate_ok]).to be true
     end
+
+    it "allow misprint" do
+      card = Card.new(translated_text: " hause ")
+      expect(card.check_translation("huase")[:misprint_ok]).to be true
+    end
   end
 
     describe "success" do
@@ -50,8 +55,9 @@ describe "Card" do
         expect(@card.level).to eq 3
         expect((@card.review_date).strftime("%d/%m/%Y")).to eq (Time.current + 1.week).strftime("%d/%m/%Y")
       end
-
     end
+
+
 
 
     describe "failed" do
@@ -63,7 +69,7 @@ describe "Card" do
         expect(@card.fail_counter).to eq 1
       end
 
-      it "when second check is faild" do
+      it "when second check is failed" do
         @card = FactoryGirl.create(:card)
         @card.level = 3
         2.times {@card.failed}
@@ -71,7 +77,7 @@ describe "Card" do
         expect(@card.fail_counter).to eq 2
       end
 
-      it "when third check is faild" do
+      it "when third check is failed" do
         @card = FactoryGirl.create(:card)
         @card.level = 3
         3.times {@card.failed}
