@@ -18,7 +18,7 @@
 # end
 
 every 1.day, at: '4:30 am' do
-runner UserMailer.welcome_email(@user).deliver_now
+runner Card.reminder_by_mail
 end
 
 # Learn more: http://github.com/javan/whenever
