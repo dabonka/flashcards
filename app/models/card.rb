@@ -27,8 +27,13 @@ class Card < ActiveRecord::Base
   scope :cards_for_learn, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).limit(1).order("RANDOM()")}
   scope :cards_for_learn_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).limit(1).order("RANDOM()")}
 
+  def self.reminder_by_mail
+    where("review_date <=?", Time.now ).each do |u|
+      CardsMailer.pending_cards_notification(u.user).deliver_now
+    end
+  end
+
   def check_translation(mytext)
-    # info_message = "Ваш вариант - " + mytext + ". Оригинал слова - " +  self.original_text.to_s + ". Перевод слова - " + self.translated_text.to_s
     info_message = "Ваш вариант - #{mytext}. Оригинал слова - #{original_text}. Перевод слова - #{translated_text}."
     if check_misprint(mytext) < 1
       { translate_ok: true, message: info_message }
@@ -86,6 +91,7 @@ class Card < ActiveRecord::Base
     end
     save!
   end
+
 
 
   validates :original_text, :translated_text, :review_date, :user_id, presence: true
