@@ -34,7 +34,7 @@ class Card < ActiveRecord::Base
   end
 
   def check_translation(mytext)
-    info_message = "Ваш вариант - #{mytext}. Оригинал слова - #{original_text}. Перевод слова - #{translated_text}."
+    info_message = "#{I18n.t ("card.user_version")} - #{mytext} . #{I18n.t ("card.original")} - #{original_text}. #{I18n.t ("card.translate")} - #{translated_text}."
     if check_misprint(mytext) < 1
       { translate_ok: true, message: info_message }
     elsif check_misprint(mytext) == 1

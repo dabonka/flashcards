@@ -1,14 +1,14 @@
-<h1>Listing cards</h1>
+<h1><%= t("card.list") %></h1>
 <div class="table-responsive">
 <table class="table table-striped">
   <tr>
-    <th>Original Text</th>
-    <th>Translated Text</th>
-    <th>Review Date</th>
-    <th>Pictures</th>
-    <th>Show</th>
-    <th>Edit</th>
-    <th>Delete</th>
+    <th><%= t("card.original") %></th>
+    <th><%= t("card.translate") %></th>
+    <th><%= t("card.review") %></th>
+    <th><%= t("card.picture") %></th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 
   <% @cards.each do |card| %>
@@ -18,9 +18,9 @@
       <td><%= card.translated_text %></td>
       <td><%= card.review_date.strftime("%d/%m/%Y") %></td>
       <td><%= image_tag card.avatar.url(:thumb) %></td>
-      <td><%= link_to 'Show', card_path(card) %></td>
-      <td><%= link_to("Edit", edit_card_path(card) ) %></td>
-      <td><%= link_to("Delete",card_path(card), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+      <td><%= link_to(t("card.show"), card_path(card)) %></td>
+      <td><%= link_to(t("card.edit"), edit_card_path(card) ) %></td>
+      <td><%= link_to(t("card.delete"),card_path(card), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
     </tr>
   <% end %>
 </table>

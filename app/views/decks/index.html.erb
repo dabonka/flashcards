@@ -1,8 +1,14 @@
-<h1>Listing decks</h1>
-<table>
+<h1><%= t("deck.list") %></h1>
+<div class="table-responsive">
+  <table class="table table-striped">
   <tr>
-    <th>Title</th>
-    <th>Deck ID</th>
+    <th><%= t("deck.title") %></th>
+    <th><%= t("deck.id") %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 
   <% @deck.each do |deck| %>
@@ -10,14 +16,13 @@
       <tr>
         <td><%= deck.title %></td>
         <td><%= deck.id %></td>
-        <td><%= link_to 'Show', deck_path(deck) %></td>
-        <td><%= link_to("Edit", edit_deck_path(deck) ) %></td>
-        <td><%= link_to("Delete",deck_path(deck), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
-        <td><%= link_to('сделать текущей', set_current_deck_path(deck), method: :put) %></td>
-        <td><%= "текущая" if deck.id == current_user.current_deck_id %></td>
+        <td><%= link_to(t("deck.show"), deck_path(deck)) %></td>
+        <td><%= link_to(t("deck.edit"), edit_deck_path(deck)) %></td>
+        <td><%= link_to(t("deck.delete"),deck_path(deck), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+        <td><%= link_to(t("deck.make_current"), set_current_deck_path(deck), method: :put) %></td>
+        <td><%= t("deck.current") if deck.id == current_user.current_deck_id %></td>
       </tr>
   <% end %>
 
-
-
 </table>
+</div>

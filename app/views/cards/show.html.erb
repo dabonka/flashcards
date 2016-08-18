@@ -1,29 +1,29 @@
 <head>
-  <title>Cards</title>
+  <title><%= t("card.list")%></title>
   <link rel="stylesheet" href="application.css">
 </head>
 
 <table class="table table-striped">
 
-    <tr>
-	    <th>Original Text</th>
-	    <th>Translated Text</th>
-	    <th>Review Date</th>
-      <th>Picture</th>
+  <tr>
+    <th><%= t("card.original")%></th>
+    <th><%= t("card.translate")%></th>
+    <th><%= t("card.review")%></th>
+    <th><%= t("card.picture")%></th>
 
-    </tr>
+  </tr>
 
-    <tr>
-      <td><%= @card.original_text %></td>
-      <td><%= @card.translated_text %></td>
-      <td><%= @card.review_date.strftime("%d/%m/%Y") %></td>
-      <td> <%= image_tag @card.avatar.url(:thumb) %></td>
-    </tr>
+  <tr>
+    <td><%= @card.original_text %></td>
+    <td><%= @card.translated_text %></td>
+    <td><%= @card.review_date.strftime("%d/%m/%Y") %></td>
+    <td> <%= image_tag @card.avatar.url(:thumb) %></td>
+  </tr>
 
 </table>
 
-<%= link_to 'Edit', edit_card_path(@card) %> |
-<%= link_to 'Back', cards_path %>
+<%= link_to(t("card.edit"), edit_card_path(@card)) %> |
+<%= link_to(t("button.back"), cards_path) %>
 
 
 

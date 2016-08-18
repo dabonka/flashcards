@@ -1,5 +1,5 @@
 <head>
-  <title>Users</title>
+  <title><%= t("user.title")%></title>
   <link rel="stylesheet" href="application.css">
 </head>
 
@@ -7,8 +7,8 @@
   <table>
 
     <tr>
-      <th>Email</th>
-      <th>Password</th>
+      <th><%= t("user.email")%></th>
+      <th><%= t("user.password")%></th>
     </tr>
 
     <tr>
@@ -18,8 +18,8 @@
 
   </table>
 
-  <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'Home', root_path %>
+  <%= link_to(t("user.edit"), edit_user_path(@user)) %> |
+  <%= link_to(t("main.home"), root_path) %>
 
 <% end %>
 

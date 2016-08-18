@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Флэшкарточкер</title>
+  <title><%= t("main.title")%></title>
 
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag 'application' %>
@@ -25,16 +25,16 @@
     <ul class="nav navbar-nav">
 
     <% if current_user %>
-      <li><%= link_to 'Главная', root_path %></li>
-      <li><%= link_to 'Все карточки', cards_path %></li>
-      <li><%= link_to 'Добавить карточку', new_card_path %></li>
-      <li><%= link_to 'Все колоды', decks_path %></li>
-      <li><%= link_to 'Добавить колоду', new_deck_path %></li>
-      <li> <%= link_to "Edit Profile", edit_user_path(current_user.id) %></li>
-      <li class='active'><%= link_to "Logout", :logout, method: :post %></li>
+      <li><%= link_to t('main.home'), root_path %></li>
+      <li><%= link_to t('card.all'), cards_path %></li>
+      <li><%= link_to t("card.new"), new_card_path %></li>
+      <li><%= link_to t("deck.all"), decks_path %></li>
+      <li><%= link_to t("deck.new"), new_deck_path %></li>
+      <li> <%= link_to t("user.edit"), edit_user_path(current_user.id) %></li>
+      <li class='active'><%= link_to t("button.exit"), :logout, method: :post %></li>
     <% else %>
-      <li class='active'><%= link_to "Register", new_user_path %></li>
-      <li class='active'><%= link_to "Login", :login %></li>
+      <li class='active'><%= link_to t("button.reg"), new_user_path %></li>
+      <li class='active'><%= link_to t("button.login"), :login %></li>
     <% end %>
     </ul>
   </div>
