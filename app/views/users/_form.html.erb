@@ -16,7 +16,7 @@
 
 <p>
   <%= f.label :locale %><br>
-  <%= f.select (options_for_select["en","ru"], 2) %>
+  <%= f.select :locale, I18n.available_locales, selected: 'en' %>
 </p>
 
 <div class="actions">
@@ -24,3 +24,4 @@
 </div>
 
 <% end %>
+

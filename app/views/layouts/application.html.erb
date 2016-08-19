@@ -35,6 +35,8 @@
     <% else %>
       <li class='active'><%= link_to t("button.reg"), new_user_path %></li>
       <li class='active'><%= link_to t("button.login"), :login %></li>
+      <li class='active'><%= link_to 'ru', root_path(locale: :ru) %></li>
+      <li class='active'><%= link_to 'en', root_path(locale: :en) %></li>
     <% end %>
     </ul>
   </div>

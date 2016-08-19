@@ -50,6 +50,7 @@ ru:
     error:    "Ошибка при входе"
     login:    "Логин"
     remember: "Запомнить"
+    locale:   "Язык"
 
   button:
     ok:     "ОК"

@@ -26,11 +26,11 @@ en:
     h1: "Flashcards"
     content: "Cards for learning foreign words"
   card:
-    list: "Card List"
+    list: "Card list"
     edit: "Edit card"
     all: "All cards"
     add: "Add card"
-    new: "Post Card"
+    new: "New card"
     show: "Show card"
     delete: "Delete card"
     original: "Original"
@@ -45,13 +45,13 @@ en:
     error: "You must be logged in!"
 
   deck:
-    edit: "Edit Deck"
+    edit: "Edit deck"
     all: "All decks"
     add: "Add the deck"
     new: "New deck"
     title: "Name deck"
-    id: "ID Deck"
-    edit: "Edit Deck"
+    id: "ID deck"
+    edit: "Edit deck"
     show: "Show a deck of"
     delete: "Delete deck"
     confirm: "Are you sure?"
@@ -61,7 +61,7 @@ en:
 
   user:
     title: "Users"
-    new: "User Create / Edit"
+    new: "User create / edit"
     edit: "Edit profile"
     create: "Create User"
     email: "Email"
@@ -71,6 +71,7 @@ en:
     error: "Error when entering"
     login: "Login"
     remember: "Remember Me"
+    locale: "Language"
 
   button:
     ok: "OK"
