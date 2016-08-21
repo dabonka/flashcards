@@ -18,7 +18,8 @@ describe  "Cards", :type => :feature do
     fill_in 'card_original_text', :with => 'Windows'
     fill_in 'card_translated_text', :with => 'Okna'
     click_button 'OK'
-    expect(page).to have_content 'Card list'
+    # expect(page).to have_content 'Card list'
+    expect(page).to have_content I18n.t("card.list")
   end
 
   # it  "check_translation" do
