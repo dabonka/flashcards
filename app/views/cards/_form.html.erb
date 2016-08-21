@@ -1,25 +1,25 @@
 <%= form_for @card do |f| %>
-<p>
-  <%= f.label :original %><br>
-  <%= f.text_field :original_text %>
-</p>
+    <p>
+      <%= f.label :original %><br>
+      <%= f.text_field :original_text %>
+    </p>
 
-<p>
-  <%= f.label :translate %><br>
-  <%= f.text_field :translated_text %>
-</p>
+    <p>
+      <%= f.label :translate %><br>
+      <%= f.text_field :translated_text %>
+    </p>
 
-<p>
-  <%= f.file_field :avatar %>
-</p>
+    <p>
+      <%= f.file_field :avatar %>
+    </p>
 
-<p>
-  <%= f.label :review %><br>
-  <%= f.date_field :review_date, value: Date.current %>
-</p>
+    <p>
+      <%= f.label :review %><br>
+      <%= f.date_field :review_date, value: Date.current %>
+    </p>
 
-<div class="actions">
-  <%= f.submit "OK", class: 'btn btn-primary' %>
-</div>
+    <div class="actions">
+      <%= f.submit "OK", class: 'btn btn-primary' %>
+          </div>
 
-<% end %>
+    <% end %>

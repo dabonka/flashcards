@@ -1,7 +1,8 @@
-<table>
+<div class="table-responsive">
+  <table class="table table-striped">
 
   <tr>
-    <th>Name of Deck</th>
+    <th><%= t("deck.title")%></th>
 
   </tr>
 
@@ -10,10 +11,11 @@
 
   </tr>
 
-</table>
+  </table>
+</div>
 
-<%= link_to 'Edit', edit_deck_path(@deck) %> |
-<%= link_to 'Back', decks_path %>
+<%= link_to t("deck.edit"), edit_deck_path(@deck) %> |
+<%= link_to t("button.back"), decks_path %>
 
 
 

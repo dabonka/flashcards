@@ -20,4 +20,90 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  main:
+    home: "Home"
+    title: "Flachcards checker"
+    h1: "Flashcards"
+    content: "Cards for learning foreign words"
+  card:
+    list: "Card list"
+    edit: "Edit card"
+    all: "All cards"
+    add: "Add card"
+    new: "New card"
+    show: "Show card"
+    delete: "Delete card"
+    original: "Original"
+    translate: "Translation"
+    review: "Date of review"
+    picture: "Picture"
+    reminder: "Reminder card check"
+    user_version: "Your version"
+    true: "That's right!"
+    error: "Error!"
+    misprint: "Misprint!"
+    error: "You must be logged in!"
+
+  deck:
+    edit: "Edit deck"
+    all: "All decks"
+    add: "Add the deck"
+    new: "New deck"
+    title: "Name deck"
+    id: "ID deck"
+    edit: "Edit deck"
+    show: "Show a deck of"
+    delete: "Delete deck"
+    confirm: "Are you sure?"
+    make_current: "Make current"
+    current: "Current"
+    list: "List decks"
+
+  user:
+    title: "Users"
+    new: "User create / edit"
+    edit: "Edit profile"
+    create: "Create User"
+    email: "Email"
+    password: "Password"
+    out: "Session complete"
+    in: "Login was successful"
+    error: "Error when entering"
+    login: "Login"
+    remember: "Remember Me"
+    locale: "Language"
+
+  button:
+    ok: "OK"
+    back: "Back"
+    check: "Check!"
+    login: "Login"
+    exit: "Exit"
+    edit: "Edit"
+    reg: "Registration"
+    show: "Show"
+    delete: "Delete"
+
+  message:
+    unreg: "Welcome Sign up or login to get started!"
+    email: "! Reminder Be sure to check the card."
+    nocard: "Cards on the check."
+
+  login:
+    success: "Authorization is successful!"
+    failed: "Authorization failed!"
+
+activerecord:
+  attributes:
+    card:
+      original: "The original word"
+      translate: "Translation"
+      review: "Date card review"
+
+    deck:
+      name: "Name Deck"
+
+    user:
+      email: "Email"
+      password: "Password"
+      password_confirmation: "Confirm Password"

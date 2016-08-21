@@ -1,37 +1,37 @@
 <section id="container">
   <header class="clearfix">
-    <h1>FlashCards</h1>
+    <h1><%= t("main.h1")%></h1>
 
   </header>
 
   <section>
     <p style="font-size: 22px;">
-      Карточки для запоминания иностранных слов
+      <%= t("main.content")%>
     </p>
   </section>
 </section>
 
 <% if flash[:card_true] %>
-<p class="notice">Правильно!</p>
-<p>Ваш вариант: <%= flash[:card_true] %></p>
+<p class="notice"><%= t("card.true")%></p>
+<p><%= t("card.user_version")%> <%= flash[:card_true] %></p>
 <% end %>
 
 <% if flash[:card_false] %>
-  <p class="error">Ошибка!</p>
+  <p class="error"><%= t("card.error")%></p>
 <p><%= flash[:card_false] %></p>
 <% end %>
 
 <% if flash[:card_misprint] %>
-  <p class="error">Вы опечатались!</p>
+  <p class="error"><%= t("card.misprint")%></p>
 <p><%= flash[:card_misprint] %></p>
 <% end %>
 
 <% if flash[:just_login] %>
-    <p class="notice">Авторизация успешна!</p>
+    <p class="notice"><%= t("loign.success")%></p>
 <% end %>
 
 <% if flash[:login_failed] %>
-    <p class="error">Ошибка авторизации!</p>
+    <p class="error"><%= t("login.failed")%></p>
 <% end %>
 
 <% if @card.present? %>
@@ -41,11 +41,11 @@
     <%= hidden_field_tag 'card_id', @card.id %>
     <%= image_tag @card.avatar.url(:thumb) %>
   <div class="actions">
-    <button>Проверить!</button>
+    <button><%= t("button.check")%></button>
   </div>
     <table>
       <tr>
-        <th>Original Text</th>
+        <th><%= t("card.original")%></th>
       </tr>
       <tr>
         <td><%= @card.original_text %></td>
@@ -53,5 +53,5 @@
     </table>
   <% end %>
 <%  else %>
-  <p>Карт для проверки нет</p>
+  <p><%= t("message.nocard")%></p>
 <% end %>

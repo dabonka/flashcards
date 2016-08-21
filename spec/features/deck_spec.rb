@@ -16,13 +16,13 @@ describe  "Decks", :type => :feature do
     visit new_deck_path
     fill_in 'deck_title', :with => 'Повседневная колода'
     click_button 'Create Deck'
-    expect(page).to have_content 'Listing decks'
+    expect(page).to have_content 'List decks'
   end
 
   it  "Select current deck" do
     visit decks_path
-    click_link 'сделать текущей'
-    expect(page).to have_content 'текущая'
+    click_link 'Make current'
+    expect(page).to have_content 'Current'
   end
 
 

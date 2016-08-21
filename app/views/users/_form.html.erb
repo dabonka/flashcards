@@ -14,9 +14,14 @@
   <%= f.password_field :password_confirmation, :required => true %>
 </p>
 
+<p>
+  <%= f.label :locale %><br>
+  <%= f.select :locale, I18n.available_locales, selected: 'en' %>
+</p>
 
 <div class="actions">
-  <%= f.submit "Create User", class: 'btn btn-primary' %>
+  <%= f.submit t("user.create"), class: 'btn btn-primary' %>
 </div>
 
 <% end %>
+

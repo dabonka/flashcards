@@ -34,6 +34,8 @@ gem 'spring',        group: :development
 
 gem 'whenever', require: false
 
+gem 'http_accept_language'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
