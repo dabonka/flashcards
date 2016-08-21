@@ -1,0 +1,3 @@
+class Supermemo
+
+end

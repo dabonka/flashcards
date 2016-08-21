@@ -1,21 +1,21 @@
 <%= form_for @user do |f| %>
 <p>
-  <%= f.label :email %><br>
+  <%= f.label I18n.t("user.email") %><br>
   <%= f.email_field :email, :required => true, :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
 </p>
 
 <p>
-  <%= f.label :password %><br>
+  <%= f.label I18n.t("user.password") %><br>
   <%= f.password_field :password, :required => true %>
 </p>
 
 <p>
-  <%= f.label :password_confirmation %><br>
+  <%= f.label I18n.t("user.password_confirmation") %><br>
   <%= f.password_field :password_confirmation, :required => true %>
 </p>
 
 <p>
-  <%= f.label :locale %><br>
+  <%= f.label I18n.t("user.locale") %><br>
   <%= f.select :locale, I18n.available_locales, selected: 'en' %>
 </p>
 

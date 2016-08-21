@@ -18,7 +18,7 @@ class CardsController < ApplicationController
 
   def create
     @card = current_user.cards.create(cards_params)
-    if @card.save!
+    if @card.save
       redirect_to cards_path
     else
       render :new
