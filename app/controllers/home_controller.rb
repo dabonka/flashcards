@@ -12,15 +12,21 @@ class HomeController < ApplicationController
     @card = Card.find(params[:card_id])
     result = @card.check_translation(params[:user_variant])
     if result[:translate_ok]
-      @card.success
+    #  @card.success
+      myhash = Supermemo.success_efactor(@card.counter, @card.efactor)
       flash[:card_true] = result[:message]
     elsif result[:misprint_ok]
-    @card.success
+    # @card.success
+      myhash = Supermemo.misprint_efactor(@card.counter, @card.efactor)
      flash[:card_misprint] = result[:message]
     elsif result[:translate_false]
-      @card.failed
+      # @card.failed
+      myhash = Supermemo.failed_efactor(@card.counter, @card.efactor)
       flash[:card_false] = result[:message]
     end
+    byebug
+    @card.update_attributes(:review_date => myhash[:review_date], :counter => myhash[:counter], :efactor => myhash[:efactor])
+    @card.save
     redirect_to root_path
   end
 end

@@ -12,22 +12,22 @@
 </section>
 
 <% if flash[:card_true] %>
-<p class="notice"><%= t("card.true")%></p>
-<p><%= t("card.user_version")%> <%= flash[:card_true] %></p>
+    <p class="notice"><%= t("card.ok")%></p>
+    <p><%= t("card.user_version")%> <%= flash[:card_true] %></p>
 <% end %>
 
 <% if flash[:card_false] %>
-  <p class="error"><%= t("card.error")%></p>
-<p><%= flash[:card_false] %></p>
+    <p class="error"><%= t("card.error")%></p>
+    <p><%= flash[:card_false] %></p>
 <% end %>
 
 <% if flash[:card_misprint] %>
-  <p class="error"><%= t("card.misprint")%></p>
-<p><%= flash[:card_misprint] %></p>
+    <p class="error"><%= t("card.misprint")%></p>
+    <p><%= flash[:card_misprint] %></p>
 <% end %>
 
 <% if flash[:just_login] %>
-    <p class="notice"><%= t("loign.success")%></p>
+    <p class="notice"><%= t("login.success")%></p>
 <% end %>
 
 <% if flash[:login_failed] %>
@@ -46,9 +46,16 @@
     <table>
       <tr>
         <th><%= t("card.original")%></th>
+        <th>Counter</th>
+        <th>Efactor</th>
+        <th>Review date</th>
       </tr>
+
       <tr>
         <td><%= @card.original_text %></td>
+        <td><%= @card.counter %></td>
+        <td><%= @card.efactor %></td>
+        <td><%= @card.review_date %></td>
       </tr>
     </table>
   <% end %>
