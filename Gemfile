@@ -36,6 +36,10 @@ gem 'whenever', require: false
 
 gem 'http_accept_language'
 
+gem 'rollbar'
+
+gem 'mail'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
