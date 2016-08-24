@@ -15,27 +15,27 @@ describe  "Supermemo" do
 
     context "if success_efactor" do
       subject { Supermemo.success_efactor(1, 2.5) }
-      it { should include(:efactor => 2.6, :counter => 2) }
+      it { should include(efactor: 2.6, counter: 2) }
     end
 
     context "if misprint_efactor" do
       subject { Supermemo.misprint_efactor(1, 2.5) }
-      it { should include(:efactor => 2.36, :counter => 2) }
+      it { should include(efactor: 2.36, counter: 2) }
     end
 
     context "if failed_efactor" do
       subject { Supermemo.failed_efactor(1, 2.5) }
-      it { should include(:efactor => 0.5, :counter => 2) }
+      it { should include(efactor: 0.5, counter: 2) }
     end
 
     context "if success_calc with quality 5 (success)" do
       subject { Supermemo.success_calc(1, 5, 2.5) }
-      it { should include(:efactor => 2.6, :counter => 2) }
+      it { should include(efactor: 2.6, counter: 2) }
     end
 
     context "if success_calc with quality 5 (misprint)" do
       subject { Supermemo.success_calc(1, 3, 2.5) }
-      it { should include(:efactor => 2.36, :counter => 2) }
+      it { should include(efactor: 2.36, counter: 2) }
     end
 
     context "check calculate_efactor"do
