@@ -24,8 +24,7 @@ class HomeController < ApplicationController
       myhash = Supermemo.failed_efactor(@card.counter, @card.efactor)
       flash[:card_false] = result[:message]
     end
-    byebug
-    @card.update_attributes(:review_date => myhash[:review_date], :counter => myhash[:counter], :efactor => myhash[:efactor])
+    @card.update_attributes(myhash)
     @card.save
     redirect_to root_path
   end
