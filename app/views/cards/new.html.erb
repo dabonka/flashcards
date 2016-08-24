@@ -2,12 +2,12 @@
 
 <%= form_for @card do |f| %>
     <p>
-      <%= f.label :original %><br>
+      <%= f.label I18n.t("card.original") %><br>
       <%= f.text_field :original_text %>
     </p>
 
     <p>
-      <%= f.label :translate %><br>
+      <%= f.label I18n.t("card.translate") %><br>
       <%= f.text_field :translated_text %>
     </p>
 
@@ -16,7 +16,7 @@
     </p>
 
     <p>
-      <%= f.label :review %><br>
+      <%= f.label I18n.t("card.review") %><br>
       <%= f.date_field :review_date, value: Date.current %>
     </p>
 

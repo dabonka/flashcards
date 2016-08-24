@@ -18,7 +18,7 @@ class CardsController < ApplicationController
 
   def create
     @card = current_user.cards.create(cards_params)
-    if @card.save!
+    if @card.save
       redirect_to cards_path
     else
       render :new
@@ -54,7 +54,7 @@ class CardsController < ApplicationController
   #end
 
   def cards_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :avatar, :deck_id, :level, :fail_counter)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :avatar, :deck_id, :level, :fail_counter, :counter, :efactor)
   end
 
 end
