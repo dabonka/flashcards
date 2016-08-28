@@ -18,3 +18,6 @@
 
 # Ignore byebug history
 /.byebug_history
+
+# Ignore byebug history
+/.env
