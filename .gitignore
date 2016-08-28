@@ -19,5 +19,5 @@
 # Ignore byebug history
 /.byebug_history
 
-# Ignore byebug history
+# Ignore env folder
 /.env
