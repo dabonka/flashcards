@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  root :to => "home#index"
   
-  resources :cards
-  post "home" => "home#compare"
+  namespace :api do 
+    namespace :v1 do 
+      root :to => "home#index"
+      resources :cards
+      post "home" => "home#compare"
+    end
+  end
 
   resources :users
   resources :user_sessions
