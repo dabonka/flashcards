@@ -26,6 +26,7 @@ class Card < ActiveRecord::Base
 
   scope :cards_for_learn, -> (u) { where("review_date <= ? AND user_id = ?", Time.now, u.id).limit(1).order("RANDOM()")}
   scope :cards_for_learn_by_current_deck, -> (u) { where("review_date <= ? AND user_id = ? AND deck_id = ?", Time.now, u.id, u.current_deck_id).limit(1).order("RANDOM()")}
+  scope :all_cards_for_learn, -> { where("review_date <= ?", Time.now).limit(1).order("RANDOM()")}
 
   def self.reminder_by_mail
     where("review_date <=?", Time.now ).each do |u|
