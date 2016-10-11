@@ -23,7 +23,9 @@ class Api::V1::CardsController < ApplicationController
     end
     @card.update_attributes(myhash)
     @card.save
-    redirect_to root_path
+    render :index
+    # redirect_to root_path
+
   end
 
    def give_me_json 
