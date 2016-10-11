@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :require_login
+  respond_to :json
   def index
     @card = if current_user.current_deck_id?
       Card.cards_for_learn(current_user).take
@@ -28,4 +29,10 @@ class HomeController < ApplicationController
     @card.save
     redirect_to root_path
   end
+
+   def give_me_json 
+    @card = Card.find(params[:card_id]) 
+    respond_with :card_id, :original_text, :translated_text, @card 
+   end
+
 end

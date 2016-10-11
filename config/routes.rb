@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   resources :cards
   post "home" => "home#compare"
+  # get "home" => "home#give_me_json"
 
   resources :users
   resources :user_sessions
