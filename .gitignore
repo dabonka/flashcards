@@ -19,5 +19,8 @@
 # Ignore byebug history
 /.byebug_history
 
-# Ignore byebug history
+# Ignore env history
 /.env
+
+# Ignore js before webpacking
+/app/assets/javascripts
