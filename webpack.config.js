@@ -6,7 +6,7 @@ var config = module.exports = {
   context: __dirname,
   // the main entry point for our application's frontend JS
   entry: { 
-    app: 'home/antares/work/flashcards/app/frontend/entry.js',
+    app: '../flashcards/app/frontend/entry.js',
     vendor: ['angular'],
   },  
 };
@@ -37,7 +37,7 @@ config.resolve = {
   extensions: ['', '.js','.coffee'],
   // by default, webpack will search in `web_modules` and `node_modules`. Because we're using
   // Bower, we want it to look in there too
-  modulesDirectories: [ 'node_modules' ],
+  modulesDirectories: [ '../flashcards/node_modules' ],
 };
 
 /////
