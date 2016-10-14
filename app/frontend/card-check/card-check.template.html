@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <p>{{$ctrl.card.original_text}}</p>
+
+        <form ng-submit="$ctrl.formSubmit($event)">
+          <input type="text" placeholder="Введите перевод слова" ng-model="$ctrl.user_variant">
+          <input type="submit" value="Проверить">
+        </form>
+        
+        <div ng-show="correct">Правильно!</div> 
+        <div ng-show="incorrect">Ошибка!</div> 
+    </div>
+  </div>
+</div>

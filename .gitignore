@@ -24,3 +24,7 @@
 
 # Ignore js before webpacking
 /app/assets/javascripts
+/bower_components
+/node_modules
+/npm-debug.log
+/app/frontend/bower_components

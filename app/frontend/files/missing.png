@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Action Controller: Exception caught</title>
+  <style>
+    body {
+      background-color: #FAFAFA;
+      color: #333;
+      margin: 0px;
+    }
+
+    body, p, ol, ul, td {
+      font-family: helvetica, verdana, arial, sans-serif;
+      font-size:   13px;
+      line-height: 18px;
+    }
+
+    pre {
+      font-size: 11px;
+      white-space: pre-wrap;
+    }
+
+    pre.box {
+      border: 1px solid #EEE;
+      padding: 10px;
+      margin: 0px;
+      width: 958px;
+    }
+
+    header {
+      color: #F0F0F0;
+      background: #C52F24;
+      padding: 0.5em 1.5em;
+    }
+
+    h1 {
+      margin: 0.2em 0;
+      line-height: 1.1em;
+      font-size: 2em;
+    }
+
+    h2 {
+      color: #C52F24;
+      line-height: 25px;
+    }
+
+    .details {
+      border: 1px solid #D0D0D0;
+      border-radius: 4px;
+      margin: 1em 0px;
+      display: block;
+      width: 978px;
+    }
+
+    .summary {
+      padding: 8px 15px;
+      border-bottom: 1px solid #D0D0D0;
+      display: block;
+    }
+
+    .details pre {
+      margin: 5px;
+      border: none;
+    }
+
+    #container {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 1.5em;
+    }
+
+    .source * {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .source {
+      border: 1px solid #D9D9D9;
+      background: #ECECEC;
+      width: 978px;
+    }
+
+    .source pre {
+      padding: 10px 0px;
+      border: none;
+    }
+
+    .source .data {
+      font-size: 80%;
+      overflow: auto;
+      background-color: #FFF;
+    }
+
+    .info {
+      padding: 0.5em;
+    }
+
+    .source .data .line_numbers {
+      background-color: #ECECEC;
+      color: #AAA;
+      padding: 1em .5em;
+      border-right: 1px solid #DDD;
+      text-align: right;
+    }
+
+    .line {
+      padding-left: 10px;
+    }
+
+    .line:hover {
+      background-color: #F6F6F6;
+    }
+
+    .line.active {
+      background-color: #FFCCCC;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    a { color: #980905; }
+    a:visited { color: #666; }
+    a.trace-frames { color: #666; }
+    a:hover { color: #C52F24; }
+    a.trace-frames.selected { color: #C52F24 }
+
+      #route_table {
+    margin: 0;
+    border-collapse: collapse;
+  }
+
+  #route_table thead tr {
+    border-bottom: 2px solid #ddd;
+  }
+
+  #route_table thead tr.bottom {
+    border-bottom: none;
+  }
+
+  #route_table thead tr.bottom th {
+    padding: 10px 0;
+    line-height: 15px;
+  }
+
+  #route_table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  #route_table tbody tr:nth-child(odd) {
+    background: #f2f2f2;
+  }
+
+  #route_table tbody.exact_matches,
+  #route_table tbody.fuzzy_matches {
+    background-color: LightGoldenRodYellow;
+    border-bottom: solid 2px SlateGrey;
+  }
+
+  #route_table tbody.exact_matches tr,
+  #route_table tbody.fuzzy_matches tr {
+    background: none;
+    border-bottom: none;
+  }
+
+  #route_table td {
+    padding: 4px 30px;
+  }
+
+  #path_search {
+    width: 80%;
+    font-size: inherit;
+  }
+
+  </style>
+
+  <script>
+    var toggle = function(id) {
+      var s = document.getElementById(id).style;
+      s.display = s.display == 'none' ? 'block' : 'none';
+      return false;
+    }
+    var show = function(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    var hide = function(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    var toggleTrace = function() {
+      return toggle('blame_trace');
+    }
+    var toggleSessionDump = function() {
+      return toggle('session_dump');
+    }
+    var toggleEnvDump = function() {
+      return toggle('env_dump');
+    }
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>Routing Error</h1>
+</header>
+<div id="container">
+  <h2>No route matches [GET] &quot;/images/thumb/missing.png&quot;</h2>
+
+  
+<p><code>Rails.root: /home/antares/work/flashcards</code></p>
+
+<div id="traces">
+    <a href="#" onclick="hide(&#39;Framework-Trace&#39;);hide(&#39;Full-Trace&#39;);show(&#39;Application-Trace&#39;);; return false;">Application Trace</a> |
+    <a href="#" onclick="hide(&#39;Application-Trace&#39;);hide(&#39;Full-Trace&#39;);show(&#39;Framework-Trace&#39;);; return false;">Framework Trace</a> |
+    <a href="#" onclick="hide(&#39;Application-Trace&#39;);hide(&#39;Framework-Trace&#39;);show(&#39;Full-Trace&#39;);; return false;">Full Trace</a> 
+
+    <div id="Application-Trace" style="display: block;">
+      <pre><code></code></pre>
+    </div>
+    <div id="Framework-Trace" style="display: none;">
+      <pre><code><a class="trace-frames" data-frame-id="0" href="#">actionpack (4.2.7) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call&#39;</a><br><a class="trace-frames" data-frame-id="1" href="#">rollbar (2.12.0) lib/rollbar/middleware/rails/show_exceptions.rb:22:in `call_with_rollbar&#39;</a><br><a class="trace-frames" data-frame-id="2" href="#">actionpack (4.2.7) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call&#39;</a><br><a class="trace-frames" data-frame-id="3" href="#">railties (4.2.7) lib/rails/rack/logger.rb:38:in `call_app&#39;</a><br><a class="trace-frames" data-frame-id="4" href="#">railties (4.2.7) lib/rails/rack/logger.rb:20:in `block in call&#39;</a><br><a class="trace-frames" data-frame-id="5" href="#">activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `block in tagged&#39;</a><br><a class="trace-frames" data-frame-id="6" href="#">activesupport (4.2.7) lib/active_support/tagged_logging.rb:26:in `tagged&#39;</a><br><a class="trace-frames" data-frame-id="7" href="#">activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `tagged&#39;</a><br><a class="trace-frames" data-frame-id="8" href="#">railties (4.2.7) lib/rails/rack/logger.rb:20:in `call&#39;</a><br><a class="trace-frames" data-frame-id="9" href="#">actionpack (4.2.7) lib/action_dispatch/middleware/request_id.rb:21:in `call&#39;</a><br><a class="trace-frames" data-frame-id="10" href="#">rack (1.6.4) lib/rack/methodoverride.rb:22:in `call&#39;</a><br><a class="trace-frames" data-frame-id="11" href="#">rack (1.6.4) lib/rack/runtime.rb:18:in `call&#39;</a><br><a class="trace-frames" data-frame-id="12" href="#">activesupport (4.2.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call&#39;</a><br><a class="trace-frames" data-frame-id="13" href="#">rack (1.6.4) lib/rack/lock.rb:17:in `call&#39;</a><br><a class="trace-frames" data-frame-id="14" href="#">actionpack (4.2.7) lib/action_dispatch/middleware/static.rb:120:in `call&#39;</a><br><a class="trace-frames" data-frame-id="15" href="#">rack (1.6.4) lib/rack/sendfile.rb:113:in `call&#39;</a><br><a class="trace-frames" data-frame-id="16" href="#">railties (4.2.7) lib/rails/engine.rb:518:in `call&#39;</a><br><a class="trace-frames" data-frame-id="17" href="#">railties (4.2.7) lib/rails/application.rb:165:in `call&#39;</a><br><a class="trace-frames" data-frame-id="18" href="#">rack (1.6.4) lib/rack/lock.rb:17:in `call&#39;</a><br><a class="trace-frames" data-frame-id="19" href="#">rack (1.6.4) lib/rack/content_length.rb:15:in `call&#39;</a><br><a class="trace-frames" data-frame-id="20" href="#">rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service&#39;</a><br><a class="trace-frames" data-frame-id="21" href="#">/usr/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service&#39;</a><br><a class="trace-frames" data-frame-id="22" href="#">/usr/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run&#39;</a><br><a class="trace-frames" data-frame-id="23" href="#">/usr/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread&#39;</a><br></code></pre>
+    </div>
+    <div id="Full-Trace" style="display: none;">
+      <pre><code><a class="trace-frames" data-frame-id="0" href="#">actionpack (4.2.7) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call&#39;</a><br><a class="trace-frames" data-frame-id="1" href="#">rollbar (2.12.0) lib/rollbar/middleware/rails/show_exceptions.rb:22:in `call_with_rollbar&#39;</a><br><a class="trace-frames" data-frame-id="2" href="#">actionpack (4.2.7) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call&#39;</a><br><a class="trace-frames" data-frame-id="3" href="#">railties (4.2.7) lib/rails/rack/logger.rb:38:in `call_app&#39;</a><br><a class="trace-frames" data-frame-id="4" href="#">railties (4.2.7) lib/rails/rack/logger.rb:20:in `block in call&#39;</a><br><a class="trace-frames" data-frame-id="5" href="#">activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `block in tagged&#39;</a><br><a class="trace-frames" data-frame-id="6" href="#">activesupport (4.2.7) lib/active_support/tagged_logging.rb:26:in `tagged&#39;</a><br><a class="trace-frames" data-frame-id="7" href="#">activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `tagged&#39;</a><br><a class="trace-frames" data-frame-id="8" href="#">railties (4.2.7) lib/rails/rack/logger.rb:20:in `call&#39;</a><br><a class="trace-frames" data-frame-id="9" href="#">actionpack (4.2.7) lib/action_dispatch/middleware/request_id.rb:21:in `call&#39;</a><br><a class="trace-frames" data-frame-id="10" href="#">rack (1.6.4) lib/rack/methodoverride.rb:22:in `call&#39;</a><br><a class="trace-frames" data-frame-id="11" href="#">rack (1.6.4) lib/rack/runtime.rb:18:in `call&#39;</a><br><a class="trace-frames" data-frame-id="12" href="#">activesupport (4.2.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call&#39;</a><br><a class="trace-frames" data-frame-id="13" href="#">rack (1.6.4) lib/rack/lock.rb:17:in `call&#39;</a><br><a class="trace-frames" data-frame-id="14" href="#">actionpack (4.2.7) lib/action_dispatch/middleware/static.rb:120:in `call&#39;</a><br><a class="trace-frames" data-frame-id="15" href="#">rack (1.6.4) lib/rack/sendfile.rb:113:in `call&#39;</a><br><a class="trace-frames" data-frame-id="16" href="#">railties (4.2.7) lib/rails/engine.rb:518:in `call&#39;</a><br><a class="trace-frames" data-frame-id="17" href="#">railties (4.2.7) lib/rails/application.rb:165:in `call&#39;</a><br><a class="trace-frames" data-frame-id="18" href="#">rack (1.6.4) lib/rack/lock.rb:17:in `call&#39;</a><br><a class="trace-frames" data-frame-id="19" href="#">rack (1.6.4) lib/rack/content_length.rb:15:in `call&#39;</a><br><a class="trace-frames" data-frame-id="20" href="#">rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service&#39;</a><br><a class="trace-frames" data-frame-id="21" href="#">/usr/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service&#39;</a><br><a class="trace-frames" data-frame-id="22" href="#">/usr/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run&#39;</a><br><a class="trace-frames" data-frame-id="23" href="#">/usr/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread&#39;</a><br></code></pre>
+    </div>
+
+  <script type="text/javascript">
+    var traceFrames = document.getElementsByClassName('trace-frames');
+    var selectedFrame, currentSource = document.getElementById('frame-source-0');
+
+    // Add click listeners for all stack frames
+    for (var i = 0; i < traceFrames.length; i++) {
+      traceFrames[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = e.target;
+        var frame_id = target.dataset.frameId;
+
+        if (selectedFrame) {
+          selectedFrame.className = selectedFrame.className.replace("selected", "");
+        }
+
+        target.className += " selected";
+        selectedFrame = target;
+
+        // Change the extracted source code
+        changeSourceExtract(frame_id);
+      });
+
+      function changeSourceExtract(frame_id) {
+        var el = document.getElementById('frame-source-' + frame_id);
+        if (currentSource && el) {
+          currentSource.className += " hidden";
+          el.className = el.className.replace(" hidden", "");
+          currentSource = el;
+        }
+      }
+    }
+  </script>
+</div>
+
+
+    <h2>
+      Routes
+    </h2>
+
+    <p>
+      Routes match in priority from top to bottom
+    </p>
+
+    
+<table id='route_table' class='route_table'>
+  <thead>
+    <tr>
+      <th>Helper</th>
+      <th>HTTP Verb</th>
+      <th>Path</th>
+      <th>Controller#Action</th>
+    </tr>
+    <tr class='bottom'>
+      <th>
+        <a data-route-helper="_path" title="Returns a relative path (without the http or domain)" href="#">Path</a> /
+        <a data-route-helper="_url" title="Returns an absolute url (with the http and domain)" href="#">Url</a>
+      </th>
+      <th>
+      </th>
+      <th>
+        <input id="search" placeholder="Path Match" type="search" name="path[]" />
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody class='exact_matches' id='exact_matches'>
+  </tbody>
+  <tbody class='fuzzy_matches' id='fuzzy_matches'>
+  </tbody>
+  <tbody>
+    <tr class='route_row' data-helper='path'>
+  <td data-route-name='root'>
+      root<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/' data-regexp='^\/$'>
+    /
+  </td>
+  <td data-route-reqs='home#index'>
+    home#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='cards'>
+      cards<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/cards(.:format)' data-regexp='^\/cards(?:\.([^\/.?]+))?$'>
+    /cards(.:format)
+  </td>
+  <td data-route-reqs='cards#index'>
+    cards#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/cards(.:format)' data-regexp='^\/cards(?:\.([^\/.?]+))?$'>
+    /cards(.:format)
+  </td>
+  <td data-route-reqs='cards#create'>
+    cards#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_card'>
+      new_card<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/cards/new(.:format)' data-regexp='^\/cards\/new(?:\.([^\/.?]+))?$'>
+    /cards/new(.:format)
+  </td>
+  <td data-route-reqs='cards#new'>
+    cards#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_card'>
+      edit_card<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/cards/:id/edit(.:format)' data-regexp='^\/cards\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /cards/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='cards#edit'>
+    cards#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='card'>
+      card<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/cards/:id(.:format)' data-regexp='^\/cards\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /cards/:id(.:format)
+  </td>
+  <td data-route-reqs='cards#show'>
+    cards#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/cards/:id(.:format)' data-regexp='^\/cards\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /cards/:id(.:format)
+  </td>
+  <td data-route-reqs='cards#update'>
+    cards#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/cards/:id(.:format)' data-regexp='^\/cards\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /cards/:id(.:format)
+  </td>
+  <td data-route-reqs='cards#update'>
+    cards#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/cards/:id(.:format)' data-regexp='^\/cards\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /cards/:id(.:format)
+  </td>
+  <td data-route-reqs='cards#destroy'>
+    cards#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='home'>
+      home<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/home(.:format)' data-regexp='^\/home(?:\.([^\/.?]+))?$'>
+    /home(.:format)
+  </td>
+  <td data-route-reqs='home#give_me_json'>
+    home#give_me_json
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='users'>
+      users<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users(.:format)' data-regexp='^\/users(?:\.([^\/.?]+))?$'>
+    /users(.:format)
+  </td>
+  <td data-route-reqs='users#index'>
+    users#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/users(.:format)' data-regexp='^\/users(?:\.([^\/.?]+))?$'>
+    /users(.:format)
+  </td>
+  <td data-route-reqs='users#create'>
+    users#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_user'>
+      new_user<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/new(.:format)' data-regexp='^\/users\/new(?:\.([^\/.?]+))?$'>
+    /users/new(.:format)
+  </td>
+  <td data-route-reqs='users#new'>
+    users#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_user'>
+      edit_user<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/:id/edit(.:format)' data-regexp='^\/users\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /users/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='users#edit'>
+    users#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='user'>
+      user<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/users/:id(.:format)' data-regexp='^\/users\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /users/:id(.:format)
+  </td>
+  <td data-route-reqs='users#show'>
+    users#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/users/:id(.:format)' data-regexp='^\/users\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /users/:id(.:format)
+  </td>
+  <td data-route-reqs='users#update'>
+    users#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/users/:id(.:format)' data-regexp='^\/users\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /users/:id(.:format)
+  </td>
+  <td data-route-reqs='users#update'>
+    users#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/users/:id(.:format)' data-regexp='^\/users\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /users/:id(.:format)
+  </td>
+  <td data-route-reqs='users#destroy'>
+    users#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='user_sessions'>
+      user_sessions<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/user_sessions(.:format)' data-regexp='^\/user_sessions(?:\.([^\/.?]+))?$'>
+    /user_sessions(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#index'>
+    user_sessions#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/user_sessions(.:format)' data-regexp='^\/user_sessions(?:\.([^\/.?]+))?$'>
+    /user_sessions(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#create'>
+    user_sessions#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_user_session'>
+      new_user_session<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/user_sessions/new(.:format)' data-regexp='^\/user_sessions\/new(?:\.([^\/.?]+))?$'>
+    /user_sessions/new(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#new'>
+    user_sessions#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_user_session'>
+      edit_user_session<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/user_sessions/:id/edit(.:format)' data-regexp='^\/user_sessions\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /user_sessions/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#edit'>
+    user_sessions#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='user_session'>
+      user_session<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/user_sessions/:id(.:format)' data-regexp='^\/user_sessions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /user_sessions/:id(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#show'>
+    user_sessions#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/user_sessions/:id(.:format)' data-regexp='^\/user_sessions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /user_sessions/:id(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#update'>
+    user_sessions#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/user_sessions/:id(.:format)' data-regexp='^\/user_sessions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /user_sessions/:id(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#update'>
+    user_sessions#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/user_sessions/:id(.:format)' data-regexp='^\/user_sessions\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /user_sessions/:id(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#destroy'>
+    user_sessions#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='decks'>
+      decks<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/decks(.:format)' data-regexp='^\/decks(?:\.([^\/.?]+))?$'>
+    /decks(.:format)
+  </td>
+  <td data-route-reqs='decks#index'>
+    decks#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/decks(.:format)' data-regexp='^\/decks(?:\.([^\/.?]+))?$'>
+    /decks(.:format)
+  </td>
+  <td data-route-reqs='decks#create'>
+    decks#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='new_deck'>
+      new_deck<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/decks/new(.:format)' data-regexp='^\/decks\/new(?:\.([^\/.?]+))?$'>
+    /decks/new(.:format)
+  </td>
+  <td data-route-reqs='decks#new'>
+    decks#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='edit_deck'>
+      edit_deck<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/decks/:id/edit(.:format)' data-regexp='^\/decks\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /decks/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='decks#edit'>
+    decks#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='deck'>
+      deck<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/decks/:id(.:format)' data-regexp='^\/decks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /decks/:id(.:format)
+  </td>
+  <td data-route-reqs='decks#show'>
+    decks#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/decks/:id(.:format)' data-regexp='^\/decks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /decks/:id(.:format)
+  </td>
+  <td data-route-reqs='decks#update'>
+    decks#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/decks/:id(.:format)' data-regexp='^\/decks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /decks/:id(.:format)
+  </td>
+  <td data-route-reqs='decks#update'>
+    decks#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/decks/:id(.:format)' data-regexp='^\/decks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /decks/:id(.:format)
+  </td>
+  <td data-route-reqs='decks#destroy'>
+    decks#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='set_current_deck'>
+      set_current_deck<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/decks/:id/set_current(.:format)' data-regexp='^\/decks\/([^\/.?]+)\/set_current(?:\.([^\/.?]+))?$'>
+    /decks/:id/set_current(.:format)
+  </td>
+  <td data-route-reqs='decks#set_current'>
+    decks#set_current
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/decks(.:format)' data-regexp='^\/decks(?:\.([^\/.?]+))?$'>
+    /decks(.:format)
+  </td>
+  <td data-route-reqs='decks#index'>
+    decks#index
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/decks(.:format)' data-regexp='^\/decks(?:\.([^\/.?]+))?$'>
+    /decks(.:format)
+  </td>
+  <td data-route-reqs='decks#create'>
+    decks#create
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/decks/new(.:format)' data-regexp='^\/decks\/new(?:\.([^\/.?]+))?$'>
+    /decks/new(.:format)
+  </td>
+  <td data-route-reqs='decks#new'>
+    decks#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/decks/:id/edit(.:format)' data-regexp='^\/decks\/([^\/.?]+)\/edit(?:\.([^\/.?]+))?$'>
+    /decks/:id/edit(.:format)
+  </td>
+  <td data-route-reqs='decks#edit'>
+    decks#edit
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/decks/:id(.:format)' data-regexp='^\/decks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /decks/:id(.:format)
+  </td>
+  <td data-route-reqs='decks#show'>
+    decks#show
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PATCH'>
+    PATCH
+  </td>
+  <td data-route-path='/decks/:id(.:format)' data-regexp='^\/decks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /decks/:id(.:format)
+  </td>
+  <td data-route-reqs='decks#update'>
+    decks#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='PUT'>
+    PUT
+  </td>
+  <td data-route-path='/decks/:id(.:format)' data-regexp='^\/decks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /decks/:id(.:format)
+  </td>
+  <td data-route-reqs='decks#update'>
+    decks#update
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name=''>
+  </td>
+  <td data-route-verb='DELETE'>
+    DELETE
+  </td>
+  <td data-route-path='/decks/:id(.:format)' data-regexp='^\/decks\/([^\/.?]+)(?:\.([^\/.?]+))?$'>
+    /decks/:id(.:format)
+  </td>
+  <td data-route-reqs='decks#destroy'>
+    decks#destroy
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='login'>
+      login<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='GET'>
+    GET
+  </td>
+  <td data-route-path='/login(.:format)' data-regexp='^\/login(?:\.([^\/.?]+))?$'>
+    /login(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#new'>
+    user_sessions#new
+  </td>
+</tr>
+<tr class='route_row' data-helper='path'>
+  <td data-route-name='logout'>
+      logout<span class='helper'>_path</span>
+  </td>
+  <td data-route-verb='POST'>
+    POST
+  </td>
+  <td data-route-path='/logout(.:format)' data-regexp='^\/logout(?:\.([^\/.?]+))?$'>
+    /logout(.:format)
+  </td>
+  <td data-route-reqs='user_sessions#destroy'>
+    user_sessions#destroy
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+<script type='text/javascript'>
+  // Iterates each element through a function
+  function each(elems, func) {
+    if (!elems instanceof Array) { elems = [elems]; }
+    for (var i = 0, len = elems.length; i < len; i++) {
+      func(elems[i]);
+    }
+  }
+
+  // Sets innerHTML for an element
+  function setContent(elem, text) {
+    elem.innerHTML = text;
+  }
+
+  // Enables path search functionality
+  function setupMatchPaths() {
+    // Check if the user input (sanitized as a path) matches the regexp data attribute
+    function checkExactMatch(section, elem, value) {
+      var string = sanitizePath(value),
+          regexp = elem.getAttribute("data-regexp");
+
+      showMatch(string, regexp, section, elem);
+    }
+
+    // Check if the route path data attribute contains the user input
+    function checkFuzzyMatch(section, elem, value) {
+      var string = elem.getAttribute("data-route-path"),
+          regexp = value;
+
+      showMatch(string, regexp, section, elem);
+    }
+
+    // Display the parent <tr> element in the appropriate section when there's a match
+    function showMatch(string, regexp, section, elem) {
+      if(string.match(RegExp(regexp))) {
+        section.appendChild(elem.parentNode.cloneNode(true));
+      }
+    }
+
+    // Check if there are any matched results in a section
+    function checkNoMatch(section, defaultText, noMatchText) {
+      if (section.innerHTML === defaultText) {
+        setContent(section, defaultText + noMatchText);
+      }
+    }
+
+    // Ensure path always starts with a slash "/" and remove params or fragments
+    function sanitizePath(path) {
+      var path = path.charAt(0) == '/' ? path : "/" + path;
+      return path.replace(/\#.*|\?.*/, '');
+    }
+
+    var regexpElems     = document.querySelectorAll('#route_table [data-regexp]'),
+        searchElem      = document.querySelector('#search'),
+        exactMatches    = document.querySelector('#exact_matches'),
+        fuzzyMatches    = document.querySelector('#fuzzy_matches');
+
+    // Remove matches when no search value is present
+    searchElem.onblur = function(e) {
+      if (searchElem.value === "") {
+        setContent(exactMatches, "");
+        setContent(fuzzyMatches, "");
+      }
+    }
+
+    // On key press perform a search for matching paths
+    searchElem.onkeyup = function(e){
+      var userInput         = searchElem.value,
+          defaultExactMatch = '<tr><th colspan="4">Paths Matching (' + escape(sanitizePath(userInput)) +'):</th></tr>',
+          defaultFuzzyMatch = '<tr><th colspan="4">Paths Containing (' + escape(userInput) +'):</th></tr>',
+          noExactMatch      = '<tr><th colspan="4">No Exact Matches Found</th></tr>',
+          noFuzzyMatch      = '<tr><th colspan="4">No Fuzzy Matches Found</th></tr>';
+
+      // Clear out results section
+      setContent(exactMatches, defaultExactMatch);
+      setContent(fuzzyMatches, defaultFuzzyMatch);
+
+      // Display exact matches and fuzzy matches
+      each(regexpElems, function(elem) {
+        checkExactMatch(exactMatches, elem, userInput);
+        checkFuzzyMatch(fuzzyMatches, elem, userInput);
+      })
+
+      // Display 'No Matches' message when no matches are found
+      checkNoMatch(exactMatches, defaultExactMatch, noExactMatch);
+      checkNoMatch(fuzzyMatches, defaultFuzzyMatch, noFuzzyMatch);
+    }
+  }
+
+  // Enables functionality to toggle between `_path` and `_url` helper suffixes
+  function setupRouteToggleHelperLinks() {
+
+    // Sets content for each element
+    function setValOn(elems, val) {
+      each(elems, function(elem) {
+        setContent(elem, val);
+      });
+    }
+
+    // Sets onClick event for each element
+    function onClick(elems, func) {
+      each(elems, function(elem) {
+        elem.onclick = func;
+      });
+    }
+
+    var toggleLinks = document.querySelectorAll('#route_table [data-route-helper]');
+    onClick(toggleLinks, function(){
+      var helperTxt   = this.getAttribute("data-route-helper"),
+          helperElems = document.querySelectorAll('[data-route-name] span.helper');
+
+      setValOn(helperElems, helperTxt);
+    });
+  }
+
+  setupMatchPaths();
+  setupRouteToggleHelperLinks();
+</script>
+
+
+  
+
+<h2 style="margin-top: 30px">Request</h2>
+<p><b>Parameters</b>:</p> <pre>None</pre>
+
+<div class="details">
+  <div class="summary"><a href="#" onclick="return toggleSessionDump()">Toggle session dump</a></div>
+  <div id="session_dump" style="display:none"><pre>_csrf_token: &quot;tSSUuzt7gor7lxtRXoPHO2uDI4Yor3nSeQSdSVyf7xE=&quot;
+session_id: &quot;b0eff82a1f5b25cc28100150aaf2c6af&quot;
+user_id: &quot;2&quot;</pre></div>
+</div>
+
+<div class="details">
+  <div class="summary"><a href="#" onclick="return toggleEnvDump()">Toggle env dump</a></div>
+  <div id="env_dump" style="display:none"><pre>GATEWAY_INTERFACE: &quot;CGI/1.1&quot;
+HTTP_ACCEPT: &quot;image/webp,image/*,*/*;q=0.8&quot;
+HTTP_ACCEPT_ENCODING: &quot;gzip, deflate, sdch&quot;
+HTTP_ACCEPT_LANGUAGE: &quot;ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4&quot;
+REMOTE_ADDR: &quot;127.0.0.1&quot;
+REMOTE_HOST: &quot;127.0.0.1&quot;
+SERVER_NAME: &quot;localhost&quot;
+SERVER_PROTOCOL: &quot;HTTP/1.1&quot;</pre></div>
+</div>
+
+<h2 style="margin-top: 30px">Response</h2>
+<p><b>Headers</b>:</p> <pre>None</pre>
+
+</div>
+
+
+</body>
+</html>
