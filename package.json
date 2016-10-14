@@ -12,12 +12,12 @@
     "expose-loader": "~0.6.0",
     "imports-loader": "~0.6.3",
     "lodash": "~2.4.1",
-    "webpack": "^1.4.15"
-  },
+    "webpack": "^1.4.15"},
+
   "scripts": {
     "postinstall": "bower install",
     "prestart": "npm install",
-    "pretest": "npm install",
-  
+    "pretest": "npm install"
+  },
   "dependencies": {}
 }

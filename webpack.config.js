@@ -6,7 +6,7 @@ var config = module.exports = {
   context: __dirname,
   // the main entry point for our application's frontend JS
   entry: { 
-    app: '/app/frontend/app.module.js',
+    app: 'home/antares/work/flashcards/app/frontend/entry.js',
     vendor: ['angular'],
   },  
 };
