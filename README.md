@@ -1,6 +1,7 @@
+<h1>Flashcards</h1>
 [![Build Status](https://travis-ci.org/dabonka/flashcards.svg?branch=master)](https://travis-ci.org/dabonka/flashcards)
 <a href="https://codeclimate.com/github/dabonka/flashcards"><img src="https://codeclimate.com/github/dabonka/flashcards/badges/gpa.svg" /></a>
-<h1>This is a web application for learning foreign language words</h1>
+<p>This is a web application for learning foreign language words</p>
 
 <h2>How to setup</h2>
 <pre>
