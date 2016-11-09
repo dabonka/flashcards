@@ -5,7 +5,7 @@
 
 <h2>How to setup</h2>
 <pre>
-git clone github.com/dabonka/flashcards.git
+git clone https://github.com/dabonka/flashcards.git
 bundle install
 rake db:migrate
 </pre>
