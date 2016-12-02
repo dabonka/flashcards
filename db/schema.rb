@@ -23,22 +23,22 @@ ActiveRecord::Schema.define(version: 20160822204020) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "avatar_file_name",    limit: 255
-    t.string   "avatar_content_type", limit: 255
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "deck_id"
-    t.integer  "level",                           default: 0
-    t.integer  "fail_counter",                    default: 0
-    t.float    "efactor",                         default: 2.5
-    t.integer  "counter",                         default: 1
+    t.integer  "level",               default: 0
+    t.integer  "fail_counter",        default: 0
+    t.float    "efactor",             default: 2.5
+    t.integer  "counter",             default: 1
   end
 
   add_index "cards", ["deck_id"], name: "index_cards_on_deck_id", using: :btree
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
   create_table "decks", force: :cascade do |t|
-    t.string   "title",      limit: 255
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -52,9 +52,9 @@ ActiveRecord::Schema.define(version: 20160822204020) do
     t.text     "crypted_password"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "salt",             limit: 255
+    t.string   "salt"
     t.integer  "current_deck_id"
-    t.string   "locale",                       default: "en"
+    t.string   "locale",           default: "en"
   end
 
 end
